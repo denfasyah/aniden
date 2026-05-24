@@ -1,0 +1,35 @@
+# Phase 04 — User System
+
+## Goal
+
+Membangun user personalization system.
+
+---
+
+# Main Tasks
+
+## User Features
+- bookmark
+- continue watching sync
+- notifications
+
+---
+
+## Auth
+- protected route
+- session validation
+
+---
+
+## Comments
+- comment system
+- moderation basic
+
+---
+
+# Success Criteria
+
+Phase selesai jika:
+- user experience personalized
+- sync feature stable
+- auth secure

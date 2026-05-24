@@ -1,0 +1,228 @@
+# User Flow
+
+## Overview
+
+Dokumen ini menjelaskan alur user dalam aplikasi Aynime.
+
+User dibagi menjadi:
+- Guest
+- User
+- Premium User
+
+---
+
+# Guest Flow
+
+## Guest Overview
+
+Guest adalah user yang belum login.
+
+Guest tetap dapat menggunakan fitur utama aplikasi tanpa dipaksa login.
+
+---
+
+## Guest Capabilities
+
+Guest dapat:
+- browse anime
+- search anime
+- melihat detail anime
+- streaming anime
+- melihat jadwal anime
+- melihat trending anime
+
+---
+
+## Guest Restrictions
+
+Guest tidak dapat:
+- bookmark sync
+- comment
+- premium access
+- multi-device sync
+- notification
+
+---
+
+## Guest Flow
+
+```txt id="f6m67t"
+Masuk Website
+↓
+Explore Homepage
+↓
+Search / Browse Anime
+↓
+Watch Episode
+↓
+Klik Bookmark
+↓
+Login Prompt
+```
+
+---
+
+# User Flow
+
+## User Overview
+
+User adalah pengguna yang login menggunakan Google OAuth.
+
+---
+
+## User Capabilities
+
+User dapat:
+- bookmark anime
+- continue watching sync
+- comment
+- melihat history
+- menerima notification
+- personalisasi dasar
+
+---
+
+## User Flow
+
+```txt id="ovw0q8"
+Login Google
+↓
+Masuk Homepage Personalized
+↓
+Bookmark Anime
+↓
+Continue Watching
+↓
+Receive Anime Updates
+```
+
+---
+
+# Premium User Flow
+
+## Premium Overview
+
+Premium User adalah user yang berlangganan premium.
+
+---
+
+## Premium Benefits
+
+Premium mendapatkan:
+- no ads
+- 1080p streaming
+- premium personalization
+- faster streaming
+- AI recommendation
+
+---
+
+## Premium Flow
+
+```txt id="pz0r4l"
+User Login
+↓
+Klik Upgrade Premium
+↓
+Midtrans Payment
+↓
+Subscription Active
+↓
+Premium Features Enabled
+```
+
+---
+
+# Homepage Navigation Flow
+
+## Homepage Structure
+
+Urutan homepage:
+1. Hero Section
+2. Continue Watching
+3. Trending Anime
+4. Latest Update
+5. Schedule Anime
+6. Genres
+7. Top Anime
+8. Footer
+
+---
+
+# Anime Watching Flow
+
+```txt id="szb4q6"
+Homepage
+↓
+Anime Detail
+↓
+Episode List
+↓
+Streaming Page
+↓
+Next Episode
+↓
+Continue Watching Saved
+```
+
+---
+
+# Bookmark Flow
+
+```txt id="j4mgm8"
+Klik Bookmark
+↓
+Check Authentication
+↓
+Jika Guest → Login Prompt
+↓
+Jika User → Save Bookmark
+```
+
+---
+
+# Continue Watching Flow
+
+## Guest
+Disimpan di Local Storage.
+
+## User
+Disimpan di Database dan Sync Multi Device.
+
+---
+
+# Authentication Flow
+
+```txt id="n6q2mk"
+Guest Browse
+↓
+User Action Requires Login
+↓
+Google OAuth Popup
+↓
+Session Created
+↓
+User Redirect Back
+```
+
+---
+
+# Navigation Principles
+
+Aynime menggunakan prinsip:
+- fast navigation
+- minimal friction
+- mobile-first interaction
+- low login barrier
+- personalized experience
+
+---
+
+# UX Goals
+
+Tujuan utama flow:
+- user mudah eksplor anime
+- user cepat mulai menonton
+- user nyaman kembali menonton
+- meningkatkan retention
+- mempermudah personalization

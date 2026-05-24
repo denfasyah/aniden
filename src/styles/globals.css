@@ -1,0 +1,136 @@
+@import "tailwindcss";
+
+:root {
+  /* Cinematic Cyberpunk Colors (Shared) */
+  --primary: #FF4D9D;
+  --secondary: #00E5FF;
+  --accent: #7C4DFF;
+
+  /* Light Mode Colors */
+  --background: #F8FAFC;
+  --surface: #FFFFFF;
+  --elevated: #E2E8F0;
+  --border: #CBD5E1;
+
+  /* Light Mode Text */
+  --text-primary: #0F172A;
+  --text-secondary: #475569;
+
+  /* Light Mode deblack/lowblack */
+   --deblack: rgba(15, 23, 42, 0.75);
+  --lowblack: #475569;
+
+  /* Semantic Colors */
+  --success: #22C55E;
+  --warning: #FACC15;
+  --error: #EF4444;
+  --info: #38BDF8;
+
+  /* Premium Special Gradient */
+  --premium-grad-start: #F59E0B;
+  --premium-grad-end: #7C4DFF;
+
+  /* Glassmorphic Settings */
+  --glass-bg: rgba(255, 255, 255, 0.45);
+  --glass-blur: 12px;
+  --glass-border: rgba(15, 23, 42, 0.12);
+}
+
+.dark {
+  /* Dark Mode Colors */
+  --background: #070B14;
+  --surface: #090c16;
+  --elevated: #1A2235;
+  --border: #2A3448;
+
+  /* Dark Mode Text */
+  --text-primary: #F8FAFC;
+  --text-secondary: #94A3B8;
+
+  /* Dark Mode deblack/lowblack — DIBALIK karena background gelap */
+   --deblack: rgba(255,255,255,0.75);
+  --lowblack: #94A3B8;
+
+  /* Glassmorphic Settings */
+  --glass-bg: rgba(7, 11, 20, 0.55);
+  --glass-blur: 16px;
+  --glass-border: rgba(42, 52, 72, 0.5);
+}
+
+@theme {
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  
+  --color-bg-main: var(--background);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-border-main: var(--border);
+  
+  --color-text-main: var(--text-primary);
+  --color-text-muted: var(--text-secondary);
+
+  --color-success: var(--success);
+  --color-warning: var(--warning);
+  --color-error: var(--error);
+  --color-info: var(--info);
+
+  --font-sans: var(--font-outfit), var(--font-inter), sans-serif;
+  --font-heading: var(--font-outfit), sans-serif;
+
+  --radius-lg: 8px;
+  --radius-2xl: 16px;
+  --radius-3xl: 24px;
+
+  --transition-cinematic: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+@utility container-standard {
+  max-width: 1440px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@utility container-reading {
+  max-width: 768px;
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}
+
+@utility glass-morphism {
+  background-color: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+  border: 1px solid var(--glass-border);
+}
+
+@utility neon-glow-primary {
+  box-shadow: 0 0 15px rgba(255, 77, 157, 0.25);
+}
+
+@utility neon-glow-secondary {
+  box-shadow: 0 0 15px rgba(0, 229, 255, 0.25);
+}
+
+@utility neon-glow-accent {
+  box-shadow: 0 0 15px rgba(124, 77, 255, 0.25);
+}
+
+body {
+  background-color: var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-sans);
+  transition: var(--transition-cinematic);
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}

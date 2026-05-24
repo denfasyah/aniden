@@ -1,0 +1,107 @@
+# Target User
+
+## Overview
+
+Aynime ditujukan untuk pengguna anime modern yang menginginkan:
+- pengalaman streaming cepat
+- UI modern
+- personalisasi
+- akses anime yang mudah
+
+---
+
+# Primary Target User
+
+## Anime Watcher
+
+Karakteristik:
+- aktif menonton anime ongoing
+- sering mencari anime baru
+- sering binge watching
+- menggunakan mobile device
+
+Kebutuhan:
+- streaming cepat
+- update episode cepat
+- continue watching
+- bookmark anime
+
+---
+
+# Mobile User
+
+Karakteristik:
+- mayoritas menggunakan smartphone
+- konsumsi konten cepat
+- scrolling intensive
+
+Kebutuhan:
+- responsive UI
+- fast loading
+- mobile-first navigation
+- smooth interaction
+
+---
+
+# Casual User
+
+Karakteristik:
+- tidak terlalu hardcore anime
+- hanya menonton anime populer
+- login optional
+
+Kebutuhan:
+- simple navigation
+- easy discovery
+- low friction experience
+
+---
+
+# Potential Premium User
+
+Karakteristik:
+- menonton anime rutin
+- sering streaming
+- ingin pengalaman lebih nyaman
+
+Kebutuhan:
+- no ads
+- higher quality
+- faster streaming
+- personalization
+
+---
+
+# User Behavior Goals
+
+Aynime dirancang untuk:
+- meningkatkan watch session
+- meningkatkan return visit
+- meningkatkan retention
+- meningkatkan personalization
+
+---
+
+# UX Principles
+
+Aynime memprioritaskan:
+- fast access
+- low friction
+- clean interface
+- modern experience
+- responsive design
+
+---
+
+# Platform Priority
+
+## Current Priority
+- web platform
+- mobile responsive experience
+
+---
+
+## Future Priority
+- PWA
+- mobile app
+- ecosystem expansion

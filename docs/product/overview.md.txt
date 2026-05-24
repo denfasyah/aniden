@@ -1,0 +1,189 @@
+# Gambaran Umum Aynime
+
+## Apa itu Aynime?
+
+Aynime adalah platform streaming anime modern yang berfokus pada:
+- pengalaman pengguna yang bersih
+- performa cepat
+- penemuan anime
+- pengalaman menonton yang dipersonalisasi
+- antarmuka modern yang terinspirasi cyberpunk
+
+Platform ini dirancang untuk mendukung:
+- pengguna tamu
+- pengguna terautentikasi
+- pelanggan premium
+
+---
+
+# Visi
+
+Membangun pengalaman streaming anime modern yang terasa:
+- cepat
+- imersif
+- personal
+- terukur
+- berbasis komunitas
+
+Aynime bertujuan untuk menggabungkan:
+- pengalaman streaming
+- penemuan anime
+- personalisasi
+- rekomendasi berbasis AI
+ke dalam satu ekosistem.
+---
+
+# Tujuan Utama
+
+## Pengalaman Pengguna
+Memberikan pengalaman browsing dan streaming anime yang lancar dan modern di semua perangkat.
+
+## Performa
+Mengoptimalkan kecepatan pemuatan, rendering, dan alur streaming.
+
+## Skalabilitas
+Membangun arsitektur yang mudah dipelihara dan dapat diskalakan dalam hal fitur dan trafik.
+
+## SEO
+Meningkatkan kemampuan ditemukan melalui optimasi mesin pencari.
+
+## Monetisasi
+Mempersiapkan monetisasi berkelanjutan melalui:
+- langganan premium
+- iklan
+- sistem afiliasi
+
+---
+
+# Platform Target
+
+## Utama
+- Aplikasi web
+
+## Masa Depan
+- Aplikasi Web Progresif (PWA)
+- Aplikasi seluler
+
+---
+
+# Tipe Pengguna
+
+## Tamu
+Pengguna yang menjelajahi dan melakukan streaming tanpa otentikasi.
+
+Kemampuan:
+- menjelajahi anime
+- mencari anime
+- menonton anime
+- menjelajahi jadwal dan genre
+
+Keterbatasan:
+- tidak ada sinkronisasi
+- tidak ada bookmark
+- tidak ada akses premium
+
+---
+
+## Pengguna
+Pengguna terautentikasi menggunakan Google OAuth.
+
+Kemampuan:
+- bookmark
+- sinkronisasi melanjutkan menonton
+- komentar
+- riwayat tontonan
+- notifikasi
+
+---
+
+## Pengguna Premium
+Pengguna berlangganan dengan fitur tambahan.
+
+Kemampuan:
+- pengalaman tanpa iklan
+- kualitas streaming lebih tinggi
+- personalisasi premium
+- akses streaming lebih cepat
+- fitur bertenaga AI di masa mendatang
+
+---
+
+# Fitur Utama
+
+##Penemuan Anime
+Pengguna dapat menemukan:
+- anime yang sedang tren
+- anime yang sedang tayang
+- genre
+- jadwal
+- rekomendasi
+
+---
+
+## Pengalaman Streaming
+Pengguna dapat:
+- menonton episode
+- melanjutkan menonton
+- menavigasi episode dengan mudah
+- mengakses rekomendasi
+
+---
+
+## Personalisasi
+Pengguna yang terautentikasi dapat:
+- menyimpan bookmark
+- melacak riwayat
+- menerima pembaruan
+- mengelola profil
+
+---
+
+# Arah Desain
+
+Aynime menggunakan sistem desain modern yang terinspirasi cyberpunk:
+- antarmuka gelap
+- aksen neon
+- tata letak sinematik
+- glassmorphism yang bersih
+- desain responsif
+
+Prioritas desain:
+- keterbacaan
+- estetika modern
+- aksesibilitas
+- interaksi yang lancar
+
+---
+
+#ArahBisnis
+
+Fokus Awal:
+- kualitas produk
+- pertumbuhan trafik
+- retensi
+- SEO
+
+Fokus Masa Depan:
+- langganan premium
+- monetisasi
+- pengalaman berbasis AI
+- perluasan ekosistem
+
+---
+
+# Tujuan Jangka Panjang
+
+## Teknis
+- infrastruktur yang dapat diskalakan
+- arsitektur modular
+- kinerja yang dioptimalkan
+
+## Produk
+- komunitas anime yang kuat
+- ekosistem yang dipersonalisasi
+- sistem rekomendasi AI
+
+## Bisnis
+- monetisasi berkelanjutan
+- ekosistem premium
+- perluasan platform di masa depan

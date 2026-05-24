@@ -1,0 +1,229 @@
+# Features
+
+## Overview
+
+Dokumen ini berisi daftar fitur utama Aynime, dibagi berdasarkan:
+- MVP Features
+- Future Features
+- Premium Features
+
+Tujuan utama:
+- menentukan prioritas development
+- menjaga fokus MVP
+- mempermudah task management
+- menjadi acuan AI agent
+
+---
+
+# MVP Features
+
+Fitur inti yang wajib ada pada versi awal aplikasi.
+
+## Authentication
+- Login Google OAuth
+- Guest Mode
+- Session Management
+
+---
+
+## Homepage
+- Hero Anime Carousel
+- Trending Anime
+- Latest Update
+- Continue Watching
+- Jadwal Rilis Anime
+- Genre Section
+- Top Anime
+
+---
+
+## Anime Discovery
+- Search Anime
+- Filter Genre
+- Anime List
+- Ongoing Anime
+- Popular Anime
+- A-Z Anime
+
+---
+
+## Anime Detail
+- Informasi Anime
+- Poster & Backdrop
+- Genre
+- Rating
+- Studio
+- Status Anime
+- Synopsis
+- Trailer
+- Episode List
+- Recommendation Anime
+
+---
+
+## Streaming
+- Video Player
+- Next Episode
+- Previous Episode
+- Episode Navigation
+- Continue Watching
+- Streaming Server
+
+---
+
+## User Features
+- Bookmark Anime
+- Watch History
+- Continue Watching Sync
+- Profile Basic
+- Comment System
+
+---
+
+## UI/UX
+- Responsive Design
+- Dark Mode
+- Skeleton Loading
+- Empty States
+- Error States
+- Smooth Animation
+
+---
+
+## SEO
+- Dynamic Metadata
+- Sitemap
+- Robots.txt
+- SEO Friendly URL
+- Open Graph Metadata
+
+---
+
+# Future Features
+
+Fitur yang akan dikembangkan setelah MVP stabil.
+
+## AI Features
+- AI Anime Recommendation
+- AI Anime Assistant
+- AI Episode Recap
+- AI Search Suggestion
+
+---
+
+## Community Features
+- User Rating
+- Anime Review
+- Discussion Forum
+- User Following System
+
+---
+
+## Personalization
+- Personalized Homepage
+- Personalized Recommendation
+- Anime Notification
+- Watch Statistics
+
+---
+
+## Advanced Streaming
+- Multiple Streaming Server
+- Subtitle Selection
+- Quality Selection
+- Auto Skip Intro
+- Auto Next Episode
+
+---
+
+## Platform Expansion
+- Progressive Web App (PWA)
+- Mobile App
+- Desktop App
+
+---
+
+## Dashboard
+- Admin Dashboard
+- Analytics Dashboard
+- User Management
+- Content Monitoring
+
+---
+
+# Premium Features
+
+Fitur khusus untuk user premium.
+
+## Streaming Benefits
+- 1080p Streaming
+- Faster Streaming Server
+- Ad-Free Experience
+- Priority Streaming Access
+
+---
+
+## User Benefits
+- Unlimited Bookmark
+- Advanced Watch History
+- Multi Device Sync
+- Premium Badge
+- Advanced Personalization
+
+---
+
+## AI Benefits
+- Advanced AI Recommendation
+- AI Anime Discovery
+- AI Smart Search
+
+---
+
+## Future Premium Features
+- Download Episode
+- Offline Watch
+- Early Access Features
+- Exclusive Themes
+
+---
+
+# Feature Priority
+
+## High Priority
+Fitur yang wajib ada di MVP:
+- Homepage
+- Anime Detail
+- Streaming
+- Search
+- Authentication
+- Bookmark
+- Continue Watching
+
+---
+
+## Medium Priority
+Fitur penting setelah MVP:
+- Comment
+- Notification
+- Recommendation
+- Advanced Search
+
+---
+
+## Low Priority
+Fitur future scaling:
+- AI System
+- Community Features
+- Mobile App
+- Advanced Analytics
+
+---
+
+# Development Notes
+
+Prinsip development:
+- fokus MVP terlebih dahulu
+- hindari overengineering
+- prioritaskan UX dan performance
+- bangun fitur secara modular
+- scalable architecture sejak awal

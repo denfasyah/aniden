@@ -1,0 +1,128 @@
+# Premium System
+
+## Overview
+
+Aynime menggunakan sistem freemium:
+- sebagian fitur gratis
+- fitur tambahan tersedia untuk premium user
+
+Tujuan utama:
+- menjaga accessibility
+- membangun user base
+- monetisasi secara bertahap
+
+---
+
+# Free User
+
+## Free Features
+
+User gratis dapat:
+- browse anime
+- streaming basic
+- search anime
+- melihat jadwal anime
+- bookmark basic
+
+---
+
+## Free Restrictions
+
+Batasan free user:
+- ads aktif
+- maksimal 720p
+- standard streaming server
+- personalization terbatas
+
+---
+
+# Premium User
+
+## Premium Features
+
+Premium user mendapatkan:
+- no ads
+- 1080p streaming
+- faster streaming server
+- premium recommendation
+- advanced personalization
+
+---
+
+## Future Premium Features
+
+Rencana future premium:
+- offline watch
+- anime download
+- AI anime assistant
+- exclusive themes
+- early access features
+
+---
+
+# Monetization Strategy
+
+## Phase 1
+Fokus:
+- build product
+- build traffic
+- SEO
+- retention
+
+Belum fokus monetisasi.
+
+---
+
+## Phase 2
+Mulai:
+- ads ringan
+- premium branding
+- premium awareness
+
+---
+
+## Phase 3
+Mulai:
+- subscription system
+- payment gateway
+- premium ecosystem
+
+---
+
+# Ads Strategy
+
+## Free User
+Menampilkan ads ringan:
+- banner ads
+- inline ads
+- non-intrusive ads
+
+---
+
+## Premium User
+- no ads
+- cleaner UI
+- better experience
+
+---
+
+# Premium Principles
+
+Premium bukan paywall utama.
+
+Tujuan premium:
+- meningkatkan convenience
+- meningkatkan experience
+- memberikan personalization lebih baik
+
+---
+
+# Business Direction
+
+Aynime memprioritaskan:
+1. user experience
+2. retention
+3. traffic growth
+4. monetization
+
+Monetisasi dilakukan secara bertahap setelah user base stabil.
