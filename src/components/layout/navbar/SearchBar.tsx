@@ -37,7 +37,7 @@ export default function SearchBar({
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
                 placeholder="Search anime..."
-                className="search-input w-full rounded-xl border py-2.5 pr-4 pl-10 text-sm font-medium outline-none"
+                className="search-input w-full rounded-xl border-primary py-2.5 pr-4 pl-10 text-sm font-medium outline-none"
               />
             </div>
           </div>

@@ -17,7 +17,7 @@
   --text-secondary: #475569;
 
   /* Light Mode deblack/lowblack */
-   --deblack: rgba(15, 23, 42, 0.75);
+  --deblack: rgba(15, 23, 42, 0.75);
   --lowblack: #475569;
 
   /* Semantic Colors */
@@ -39,7 +39,7 @@
 .dark {
   /* Dark Mode Colors */
   --background: #070B14;
-  --surface: #090c16;
+  --surface: #111827;
   --elevated: #1A2235;
   --border: #2A3448;
 
@@ -47,8 +47,8 @@
   --text-primary: #F8FAFC;
   --text-secondary: #94A3B8;
 
-  /* Dark Mode deblack/lowblack — DIBALIK karena background gelap */
-   --deblack: rgba(255,255,255,0.75);
+  /* Dark Mode deblack/lowblack — dibalik karena background gelap */
+  --deblack: rgba(255, 255, 255, 0.75);
   --lowblack: #94A3B8;
 
   /* Glassmorphic Settings */
@@ -61,12 +61,12 @@
   --color-primary: var(--primary);
   --color-secondary: var(--secondary);
   --color-accent: var(--accent);
-  
+
   --color-bg-main: var(--background);
   --color-surface: var(--surface);
   --color-elevated: var(--elevated);
   --color-border-main: var(--border);
-  
+
   --color-text-main: var(--text-primary);
   --color-text-muted: var(--text-secondary);
 
@@ -75,16 +75,20 @@
   --color-error: var(--error);
   --color-info: var(--info);
 
+  /* Fonts (Outfit + Inter integrated via next/font/google) */
   --font-sans: var(--font-outfit), var(--font-inter), sans-serif;
   --font-heading: var(--font-outfit), sans-serif;
 
+  /* Border Radii */
   --radius-lg: 8px;
   --radius-2xl: 16px;
   --radius-3xl: 24px;
 
+  /* Custom Transitions */
   --transition-cinematic: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
+/* ── Layout Utilities ── */
 @utility container-standard {
   max-width: 1440px;
   width: 100%;
@@ -103,6 +107,7 @@
   padding-right: 1.5rem;
 }
 
+/* ── Glassmorphism ── */
 @utility glass-morphism {
   background-color: var(--glass-bg);
   backdrop-filter: blur(var(--glass-blur));
@@ -110,6 +115,7 @@
   border: 1px solid var(--glass-border);
 }
 
+/* ── Neon Glow Shadows ── */
 @utility neon-glow-primary {
   box-shadow: 0 0 15px rgba(255, 77, 157, 0.25);
 }
@@ -122,6 +128,7 @@
   box-shadow: 0 0 15px rgba(124, 77, 255, 0.25);
 }
 
+/* ── Base ── */
 body {
   background-color: var(--background);
   color: var(--text-primary);
