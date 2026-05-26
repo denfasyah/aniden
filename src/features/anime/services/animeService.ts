@@ -4,7 +4,8 @@ import {
   GenreItem, 
   DaySchedule, 
   AnimeDetailData, 
-  ApiResponseGeneric 
+  ApiResponseGeneric, 
+  EpisodeStreamData
 } from "../types/anime";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
@@ -108,6 +109,21 @@ export async function getAnimeDetail(animeId: string): Promise<AnimeDetailData |
     return response.ok ? response.data : null;
   } catch (error) {
     console.error("Error di getAnimeDetail:", error);
+    return null;
+  }
+}
+
+// services/animeService.ts (Tambahkan fungsi ini)
+
+export async function getEpisodeStream(episodeId: string): Promise<EpisodeStreamData | null> {
+  try {
+    const res = await fetch(`${BASE_URL}/episode/${episodeId}`, { cache: "no-store" });
+    if (!res.ok) return null;
+
+    const response: ApiResponseGeneric<EpisodeStreamData> = await res.json();
+    return response.ok ? response.data : null;
+  } catch (error) {
+    console.error("Gagal fetch stream:", error);
     return null;
   }
 }

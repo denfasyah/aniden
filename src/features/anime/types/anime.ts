@@ -93,3 +93,46 @@ export interface AnimeDetailData {
   recommendedAnimeList: RecommendedAnime[];
 }
 
+// types/anime.ts (Tambahkan bagian ini)
+
+export interface StreamServer {
+  title: string;
+  serverId: string;
+  href: string;
+}
+
+export interface StreamQuality {
+  title: string;
+  serverList: StreamServer[];
+}
+
+export interface DownloadLink {
+  title: string;
+  url: string;
+}
+
+export interface DownloadQuality {
+  title: string;
+  size: string;
+  urls: DownloadLink[];
+}
+
+export interface EpisodeStreamData {
+  title: string;
+  releaseTime: string;
+  defaultStreamingUrl: string;
+  hasPrevEpisode: boolean;
+  prevEpisode: {
+    episodeId: string;
+  } | null;
+  hasNextEpisode: boolean;
+  nextEpisode: {
+    episodeId: string;
+  } | null;
+  server: {
+    qualities: StreamQuality[];
+  };
+  downloadUrl: {
+    qualities: DownloadQuality[];
+  };
+}
