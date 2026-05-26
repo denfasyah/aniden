@@ -1,6 +1,9 @@
 export interface AnimeItem {
   title: string;
   poster: string;
+  status?: string;
+  rating?: string; 
+  score?: string; 
   episodes: number;
   releaseDay: string;
   latestReleaseDate: string;

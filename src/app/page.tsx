@@ -1,3 +1,4 @@
+import CompletedAnime from "@/features/anime/components/animelist/CompletedAnime";
 import GenreSection from "@/features/anime/components/animelist/GenreList";
 import NewUpdate from "@/features/anime/components/animelist/NewUpdate";
 import HeroSection from "@/features/anime/components/hero/HeroSection"
@@ -8,6 +9,7 @@ export default function Home() {
       <HeroSection />
       <NewUpdate />
       <GenreSection />
+      <CompletedAnime />
     <h1 className="my-40"></h1>
 
 
