@@ -47,7 +47,7 @@ export default function AnimeCard({ anime, infoSuffix }: AnimeCardProps) {
 
         {/* RATING BADGE  */}
         {anime.score && anime.score !== "0.0" && anime.score !== "0" ? (
-          <div className="bg-bg-main/80 text-warning absolute top-0 right-0 z-10 flex h-[23px] w-[42px] items-center justify-center gap-0.5 rounded-bl-lg text-[9px] font-black shadow-md backdrop-blur-md will-change-transform sm:w-[46px] sm:text-[10px]">
+          <div className="bg-bg-main/80 text-warning absolute top-0 right-0 z-10 flex h-5.75 w-10.5 items-center justify-center gap-0.5 rounded-bl-lg text-[9px] font-black shadow-md backdrop-blur-md will-change-transform sm:w-11.5 sm:text-[10px]">
             <Star className="fill-warning h-2.5 w-2.5 shrink-0" />
             <span className="tabular-nums">
               {/* Mengonversi nilai ke angka desimal satu digit belakang koma (misal 8.28 -> 8.3) */}
@@ -56,7 +56,7 @@ export default function AnimeCard({ anime, infoSuffix }: AnimeCardProps) {
           </div>
         ) : (
           /* Fallback jika ada anime baru rilis yang memang benar-benar belum memiliki rating apa pun di detailnya */
-          <div className="bg-bg-main/80 text-warning absolute top-0 right-0 z-10 flex h-[23px] w-[42px] items-center justify-center gap-0.5 rounded-bl-lg text-[9px] font-black shadow-md backdrop-blur-md will-change-transform sm:w-[46px] sm:text-[10px]">
+          <div className="bg-bg-main/80 text-warning absolute top-0 right-0 z-10 flex h-5.75 w-10.5 items-center justify-center gap-0.5 rounded-bl-lg text-[9px] font-black shadow-md backdrop-blur-md will-change-transform sm:w-11.5 sm:text-[10px]">
             <Star className="fill-warning h-2.5 w-2.5 shrink-0" />
             <span className="tabular-nums">N/A</span> {/* Skor default estetik industri */}
           </div>

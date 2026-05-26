@@ -1,5 +1,11 @@
-import { AnimeItem } from "../types/anime";
-import { GenreItem } from "../types/anime";
+
+import { 
+  AnimeItem, 
+  GenreItem, 
+  DaySchedule, 
+  AnimeDetailData, 
+  ApiResponseGeneric 
+} from "../types/anime";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 
@@ -74,5 +80,34 @@ async function fetchScoreDetail(animeId: string): Promise<string> {
     return responseData.data?.score || "0.0";
   } catch {
     return "0.0"; // Fallback aman jika gagal fetch detail
+  }
+}
+
+export async function getAnimeSchedule(): Promise<DaySchedule[]> {
+  try {
+    const res = await fetch(`${BASE_URL}/schedule`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Gagal mengambil jadwal rilis");
+
+    const responseData = await res.json();
+    // Membaca wrapper data sesuai response API kamu
+    return responseData.data?.days || responseData.data || [];
+  } catch (error) {
+    console.error("Error pada getAnimeSchedule service:", error);
+    return [];
+  }
+}
+
+
+export async function getAnimeDetail(animeId: string): Promise<AnimeDetailData | null> {
+  try {
+    const res = await fetch(`${BASE_URL}/anime/${animeId}`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Gagal fetch detail");
+
+    const response: ApiResponseGeneric<AnimeDetailData> = await res.json();
+
+    return response.ok ? response.data : null;
+  } catch (error) {
+    console.error("Error di getAnimeDetail:", error);
+    return null;
   }
 }
