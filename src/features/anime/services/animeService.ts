@@ -5,10 +5,12 @@ import {
   DaySchedule, 
   AnimeDetailData, 
   ApiResponseGeneric, 
-  EpisodeStreamData
+  EpisodeStreamData,
+  CategoryPaginatedResult
 } from "../types/anime";
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const ITEMS_PER_PAGE = 12;
 
 export async function getOngoingAnime(): Promise<AnimeItem[]> {
   try {
@@ -126,4 +128,59 @@ export async function getEpisodeStream(episodeId: string): Promise<EpisodeStream
     console.error("Gagal fetch stream:", error);
     return null;
   }
+}
+
+
+
+const cache: Record<string, AnimeItem[]> = {};
+
+async function fetchAllPages(endpoint: string): Promise<AnimeItem[]> {
+  let allAnime: AnimeItem[] = [];
+  let page = 1;
+
+  while (true) {
+    const res = await fetch(`${BASE_URL}/${endpoint}?page=${page}`, { cache: "no-store" });
+    if (!res.ok) break;
+
+    const responseData = await res.json();
+    const pageList: AnimeItem[] = responseData.data?.animeList ?? [];
+
+    if (pageList.length === 0) break;
+
+    allAnime = [...allAnime, ...pageList];
+
+    const hasNextPage: boolean = responseData.pagination?.hasNextPage ?? false;
+    if (!hasNextPage) break;
+    page++;
+    await new Promise((r) => setTimeout(r, 300));
+  }
+
+  return allAnime;
+}
+
+export async function getCategoryAnimePaginated(
+  endpoint: string,
+  page = 1
+): Promise<CategoryPaginatedResult> {
+  try {
+    if (!cache[endpoint]) {
+      cache[endpoint] = await fetchAllPages(endpoint);
+    }
+
+    const all = cache[endpoint];
+    const total = all.length;
+    const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
+    const sliced = all.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+
+    return { animeList: sliced, currentPage: page, totalPages, total };
+  } catch (error) {
+    console.error(`Error getCategoryAnimePaginated [${endpoint}]:`, error);
+    delete cache[endpoint];
+    return { animeList: [], currentPage: page, totalPages: 1, total: 0 };
+  }
+}
+
+export function clearCategoryCache(endpoint?: string) {
+  if (endpoint) delete cache[endpoint];
+  else Object.keys(cache).forEach((k) => delete cache[k]);
 }

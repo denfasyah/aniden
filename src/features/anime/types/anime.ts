@@ -136,3 +136,11 @@ export interface EpisodeStreamData {
     qualities: DownloadQuality[];
   };
 }
+
+
+export interface CategoryPaginatedResult {
+  animeList: AnimeItem[];
+  totalPages: number;
+  currentPage: number;
+  total: number;
+}

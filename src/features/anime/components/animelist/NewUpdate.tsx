@@ -69,7 +69,7 @@ export default function NewUpdate() {
       {/* HEADER SECTION (Reusable UI Component) */}
       <SectionHeader 
         title="⚡ New Update" 
-        viewAllHref="/anime/ongoing" 
+        viewAllHref="/ongoing" 
       />
 
       {animeList.length === 0 ? (
