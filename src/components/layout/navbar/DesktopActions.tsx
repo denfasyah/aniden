@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Sun, Moon, User, LogIn, ChevronDown } from "lucide-react";
+import { Search, Sun, Moon, LogIn, Heart, } from "lucide-react";
 import type { RefObject } from "react";
 import { useRef, useState, useEffect } from "react";
 
@@ -86,7 +86,7 @@ export default function DesktopActions({
 
       {/* ── Profile Dropdown ── */}
       <div ref={profileRef} className="relative ml-1">
-        <button
+        {/* <button
           onClick={() => setProfileOpen((v) => !v)}
           className="profile-btn flex h-8 items-center gap-1 rounded-full border-2 px-2.5 transition-all duration-300"
           aria-expanded={profileOpen}
@@ -98,7 +98,12 @@ export default function DesktopActions({
           >
             <ChevronDown size={12} strokeWidth={2.5} />
           </motion.span>
-        </button>
+        </button> */}
+
+        <Link href ="https://sociabuzz.com/x7akira/support" className="profile-btn flex h-8 items-center gap-1 rounded-full border-2 px-2.5 transition-all duration-300">
+        <Heart size={15} />
+          <span className="text-sm font-medium">Support</span>
+        </Link>
 
         <AnimatePresence>
           {profileOpen && (
@@ -122,7 +127,7 @@ export default function DesktopActions({
               />
 
               {/* Guest header */}
-              <div
+              {/* <div
                 className="flex items-center gap-2.5 border-b px-4 py-3"
                 style={{ borderColor: "var(--glass-border)" }}
               >
@@ -136,7 +141,7 @@ export default function DesktopActions({
                   <p className="text-xs font-bold text-(--deblack)">Guest User</p>
                   <p className="text-[11px] text-(--lowblack)">Not signed in</p>
                 </div>
-              </div>
+              </div> */}
 
               {/* Menu items — sama persis Browse */}
               <div className="p-2">

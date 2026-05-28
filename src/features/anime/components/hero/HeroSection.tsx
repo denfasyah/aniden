@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Tv, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, Tv, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { useTheme } from "next-themes";
 
 interface AnimeItem {
@@ -173,9 +173,9 @@ export default function HeroSection() {
       };
 
   // Detail button style
-  // const detailBtnStyle = isDark
-  //   ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)" }
-  //   : { background: "rgba(0,0,0,0.06)", border: "1px solid rgba(0,0,0,0.15)", color: "rgba(0,0,0,0.8)" };
+  const detailBtnStyle = isDark
+    ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)" }
+    : { background: "rgba(0,0,0,0.06)", border: "1px solid rgba(0,0,0,0.15)", color: "rgba(0,0,0,0.8)" };
 
   // Dot inactive
   const dotInactive = isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)";
@@ -312,18 +312,18 @@ export default function HeroSection() {
                     Tonton Sekarang
                   </motion.button>
                 </Link>
-                {/* 
-                <Link href={`/anime/${slug}`}>
+                
+                <Link href="https://sociabuzz.com/x7akira/support">
                   <motion.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}
                     className="flex items-center gap-2 rounded-xl px-5 py-3 text-sm font-bold"
                     style={detailBtnStyle}
                   >
-                    <Info size={15} />
-                    Detail
+                    <Heart size={15} />
+                    Support
                   </motion.button>
-                </Link> */}
+                </Link>
               </motion.div>
             </AnimatePresence>
           </div>

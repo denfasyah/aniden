@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { ChevronDown, User, X } from "lucide-react";
+import { ChevronDown, Heart, X } from "lucide-react";
 import { browseItems } from "@/constants/navItems";
 import NavBrand from "./NavBrand";
 
@@ -14,7 +14,10 @@ interface Props {
 }
 
 export default function MobileDrawer({
-  mobileOpen, setMobileOpen, mobileBrowseOpen, setMobileBrowseOpen,
+  mobileOpen,
+  setMobileOpen,
+  mobileBrowseOpen,
+  setMobileBrowseOpen,
 }: Props) {
   return (
     <AnimatePresence>
@@ -45,18 +48,20 @@ export default function MobileDrawer({
           >
             <div
               className="h-1 w-full shrink-0"
-              style={{ background: "linear-gradient(90deg, var(--accent), var(--secondary), var(--primary))" }}
+              style={{
+                background:
+                  "linear-gradient(90deg, var(--accent), var(--secondary), var(--primary))",
+              }}
             />
 
             <div className="flex items-center justify-between border-b border-(--border-main) px-5 py-4">
-               <NavBrand />
+              <NavBrand />
               <button onClick={() => setMobileOpen(false)} className="icon-btn">
                 <X size={18} />
               </button>
             </div>
 
             <nav className="flex-1 space-y-1 overflow-y-auto px-4 py-4">
-
               {/* Home */}
               <Link href="/" onClick={() => setMobileOpen(false)} className="mobile-nav-link">
                 Home
@@ -74,7 +79,10 @@ export default function MobileDrawer({
                   }}
                 >
                   <span>Browse</span>
-                  <motion.span animate={{ rotate: mobileBrowseOpen ? 180 : 0 }} transition={{ duration: 0.22 }}>
+                  <motion.span
+                    animate={{ rotate: mobileBrowseOpen ? 180 : 0 }}
+                    transition={{ duration: 0.22 }}
+                  >
                     <ChevronDown size={14} />
                   </motion.span>
                 </button>
@@ -107,13 +115,21 @@ export default function MobileDrawer({
               </div>
 
               {/* Ongoing */}
-              <Link href="/ongoing" onClick={() => setMobileOpen(false)} className="mobile-nav-link flex items-center gap-2.5">
+              <Link
+                href="/ongoing"
+                onClick={() => setMobileOpen(false)}
+                className="mobile-nav-link flex items-center gap-2.5"
+              >
                 <span className="inline-block h-1.5 w-1.5 animate-pulse rounded-full bg-(--primary)" />
                 Ongoing
               </Link>
 
               {/* Schedule */}
-              <Link href="/schedule" onClick={() => setMobileOpen(false)} className="mobile-nav-link">
+              <Link
+                href="/schedule"
+                onClick={() => setMobileOpen(false)}
+                className="mobile-nav-link"
+              >
                 Schedule
               </Link>
 
@@ -125,15 +141,13 @@ export default function MobileDrawer({
             </nav>
 
             <div className="border-t border-(--border-main) px-4 pt-3 pb-6">
-              <button className="flex w-full items-center gap-3 rounded-xl border border-(--primary) bg-(--elevated) px-4 py-3 text-sm font-semibold transition-all duration-200 border-opacity-20">
-                <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-(--primary) text-(--primary) bg-opacity-20">
-                  <User size={15} />
-                </div>
-                <div className="text-left">
-                  <div className="text-xs font-bold text-(--deblack)">Guest User</div>
-                  <div className="text-[11px] text-(--lowblack)">Sign in to continue</div>
-                </div>
-              </button>
+              <Link
+                href="https://sociabuzz.com/x7akira/support"
+                className="profile-btn flex h-8 items-center gap-1 rounded-full border-2 px-2.5 transition-all duration-300"
+              >
+                <Heart size={15} />
+                <span className="text-sm font-medium">Support</span>
+              </Link>
             </div>
           </motion.div>
         </>
