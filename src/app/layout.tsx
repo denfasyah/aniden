@@ -16,8 +16,8 @@ const inter = Inter({
 });
 
 export const metadata: Metadata = {
-  title: "Aniden - Modern Cyberpunk Anime Streaming",
-  description: "Immersive cyberpunk-inspired anime discovery and streaming platform.",
+  title: "Aniden - Anime Streaming",
+  description: "Anime discovery and streaming platform.",
 };
 
 export default function RootLayout({
@@ -31,6 +31,10 @@ export default function RootLayout({
       className={`${outfit.variable} ${inter.variable} h-full antialiased`}
       suppressHydrationWarning
     >
+      <head>
+        <link rel="icon" href="/logo.png" sizes="any" />
+      </head>
+
       <body className="flex flex-col bg-(--background) text-(--text-primary)">
         <Providers>
           <Navbar />
