@@ -158,3 +158,4 @@ export interface AzGroup {
   startWith: string;
   animeList: AzAnimeItem[];
 }
+

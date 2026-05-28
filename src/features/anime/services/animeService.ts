@@ -1,15 +1,13 @@
-
-import { 
-  AnimeItem, 
-  GenreItem, 
-  DaySchedule, 
-  AnimeDetailData, 
-  ApiResponseGeneric, 
+import {
+  AnimeItem,
+  GenreItem,
+  DaySchedule,
+  AnimeDetailData,
+  ApiResponseGeneric,
   EpisodeStreamData,
   CategoryPaginatedResult,
-  AzGroup
+  AzGroup,
 } from "../types/anime";
-
 
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -27,7 +25,7 @@ export async function getOngoingAnime(): Promise<AnimeItem[]> {
     const ongoingWithScore = await Promise.all(
       rawAnimeList.map(async (anime) => {
         // Jika dari API ongoing tidak ada score, kita mintakan ke endpoint detail
-        const score = anime.score || await fetchScoreDetail(anime.animeId);
+        const score = anime.score || (await fetchScoreDetail(anime.animeId));
         return {
           ...anime,
           score, // Masukkan score detail ke dalam object anime ongoing
@@ -45,7 +43,7 @@ export async function getOngoingAnime(): Promise<AnimeItem[]> {
 export async function getAnimeGenres(): Promise<GenreItem[]> {
   try {
     const res = await fetch(`${BASE_URL}/genres`, { cache: "no-store" });
-    
+
     if (!res.ok) {
       throw new Error(`Failed to fetch genres: ${res.status}`);
     }
@@ -62,7 +60,7 @@ export async function getAnimeGenres(): Promise<GenreItem[]> {
 export async function getCompletedAnime(): Promise<AnimeItem[]> {
   try {
     const res = await fetch(`${BASE_URL}/completed`, { cache: "no-store" });
-    
+
     if (!res.ok) {
       throw new Error(`Failed to fetch completed anime: ${res.status}`);
     }
@@ -81,7 +79,7 @@ async function fetchScoreDetail(animeId: string): Promise<string> {
     // Memanggil endpoint detail untuk mengambil score asli
     const res = await fetch(`${BASE_URL}/anime/${animeId}`, { cache: "no-store" });
     if (!res.ok) return "0.0";
-    
+
     const responseData = await res.json();
     return responseData.data?.score || "0.0";
   } catch {
@@ -102,7 +100,6 @@ export async function getAnimeSchedule(): Promise<DaySchedule[]> {
     return [];
   }
 }
-
 
 export async function getAnimeDetail(animeId: string): Promise<AnimeDetailData | null> {
   try {
@@ -133,9 +130,6 @@ export async function getEpisodeStream(episodeId: string): Promise<EpisodeStream
   }
 }
 
-
-
-
 export async function getCategoryAnimePaginated(
   endpoint: string,
   page = 1
@@ -151,12 +145,13 @@ export async function getCategoryAnimePaginated(
     // Kita perkaya data animeList dengan skor dari endpoint detail
     const animeListWithScore = await Promise.all(
       pageList.map(async (anime) => {
-        // Jika skor sudah ada di response API, gunakan itu. 
+        // Jika skor sudah ada di response API, gunakan itu.
         // Jika tidak, fetch ke endpoint detail (fetchScoreDetail).
-        const score = (anime.score && anime.score !== "0.0") 
-          ? anime.score 
-          : await fetchScoreDetail(anime.animeId);
-        
+        const score =
+          anime.score && anime.score !== "0.0"
+            ? anime.score
+            : await fetchScoreDetail(anime.animeId);
+
         return {
           ...anime,
           score,
@@ -165,18 +160,17 @@ export async function getCategoryAnimePaginated(
     );
     // ----------------------------------------
 
-    return { 
+    return {
       animeList: animeListWithScore, // Gunakan data yang sudah ada skornya
-      currentPage: page, 
-      totalPages: responseData.pagination?.lastPage || 10, 
-      total: responseData.pagination?.total || 100 
+      currentPage: page,
+      totalPages: responseData.pagination?.lastPage || 10,
+      total: responseData.pagination?.total || 100,
     };
   } catch (error) {
     console.error("Error fetching category with scores:", error);
     return { animeList: [], currentPage: page, totalPages: 1, total: 0 };
   }
 }
-
 
 export async function getAzList(): Promise<AzGroup[]> {
   try {
@@ -191,16 +185,19 @@ export async function getAzList(): Promise<AzGroup[]> {
   }
 }
 
-export async function getGenreDetail(genreId: string, page: number = 1): Promise<CategoryPaginatedResult> {
+export async function getGenreDetail(
+  genreId: string,
+  page: number = 1
+): Promise<CategoryPaginatedResult> {
   try {
-    const res = await fetch(`${BASE_URL}/genres/${genreId}?page=${page}`, { 
-      cache: "no-store" 
+    const res = await fetch(`${BASE_URL}/genres/${genreId}?page=${page}`, {
+      cache: "no-store",
     });
-    
+
     if (!res.ok) throw new Error("Gagal fetch data genre");
 
     const json = await res.json();
-    
+
     // Sesuaikan dengan struktur JSON dari API Anda (image_bbfb3f.jpg)
     return {
       animeList: json.data?.animeList || [],
@@ -211,5 +208,26 @@ export async function getGenreDetail(genreId: string, page: number = 1): Promise
   } catch (error) {
     console.error("Error fetching genre:", error);
     return { animeList: [], currentPage: page, totalPages: 1, total: 0 };
+  }
+}
+
+// Di src/features/anime/services/animeService.ts
+// src/features/anime/services/animeService.ts
+export async function searchAnime(query: string): Promise<AnimeItem[]> {
+  try {
+    // Pastikan URL di .env sudah benar: NEXT_PUBLIC_API_URL=http://localhost:3001/otakudesu
+    const res = await fetch(`${BASE_URL}/search?q=${encodeURIComponent(query)}`, {
+      cache: "no-store",
+    });
+
+    if (!res.ok) return [];
+
+    const json = await res.json();
+
+    // Sesuaikan dengan struktur JSON API Anda (biasanya di dalam data.animeList)
+    return json.data?.animeList || [];
+  } catch (error) {
+    console.error("Search error:", error);
+    return [];
   }
 }

@@ -61,13 +61,16 @@ export default function Navbar() {
               setMobileOpen={state.setMobileOpen}
             />
           </div>
-          <SearchBar
-            searchOpen={state.searchOpen}
-            setSearchOpen={state.setSearchOpen}
-            searchQuery={state.searchQuery}
-            setSearchQuery={state.setSearchQuery}
-            searchRef={state.searchRef}
-          />
+          <div className="relative"> 
+  
+  {/* 2. SearchBar dipanggil tepat di bawah input, dalam kontainer yang sama */}
+  <SearchBar 
+    searchOpen={state.searchOpen}
+    setSearchOpen={state.setSearchOpen}
+    searchQuery={state.searchQuery}
+    setSearchQuery={state.setSearchQuery}
+  />
+</div>
         </div>
       </motion.nav>
 

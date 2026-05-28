@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Sun, Moon, User, X, LogIn, ChevronDown } from "lucide-react";
+import { Search, Sun, Moon, User, LogIn, ChevronDown } from "lucide-react";
 import type { RefObject } from "react";
 import { useRef, useState, useEffect } from "react";
 
@@ -23,7 +23,7 @@ const profileItems = [
 
 export default function DesktopActions({
   mounted, isDark, toggleTheme,
-  searchOpen, setSearchOpen, searchQuery, setSearchQuery, searchRef,
+  setSearchOpen, 
 }: Props) {
   const [profileOpen, setProfileOpen] = useState(false);
   const profileRef = useRef<HTMLDivElement>(null);
@@ -42,38 +42,13 @@ export default function DesktopActions({
     <div className="hidden items-center gap-1 md:flex">
 
       {/* ── Search ── */}
-      {searchOpen ? (
-        <motion.div
-          initial={{ width: 0, opacity: 0 }}
-          animate={{ width: 220, opacity: 1 }}
-          exit={{ width: 0, opacity: 0 }}
-          transition={{ duration: 0.3, ease: "easeInOut" }}
-          className="overflow-hidden"
-        >
-          <div className="relative">
-            <input
-              ref={searchRef}
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              onKeyDown={(e) => {
-                if (e.key === "Escape") { setSearchOpen(false); setSearchQuery(""); }
-              }}
-              placeholder="Search anime..."
-              className="search-input w-full rounded-xl border py-2 pr-9 pl-4 text-sm font-medium transition-all outline-none"
-            />
-            <button
-              onClick={() => { setSearchOpen(false); setSearchQuery(""); }}
-              className="absolute top-1/2 right-2.5 -translate-y-1/2 text-(--deblack) opacity-50 transition-opacity hover:opacity-100"
-            >
-              <X size={14} />
-            </button>
-          </div>
-        </motion.div>
-      ) : (
-        <button onClick={() => setSearchOpen(true)} className="icon-btn">
-          <Search size={18} />
-        </button>
-      )}
+ {/* ── Search Toggle Button ── */}
+<button 
+  onClick={() => setSearchOpen((prev) => !prev)} 
+  className="icon-btn"
+>
+  <Search size={18} />
+</button>
 
       {/* ── Bookmark ── */}
       {/* <Link href="/bookmarks" className="icon-btn">
