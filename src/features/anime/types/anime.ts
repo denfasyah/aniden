@@ -10,6 +10,7 @@ export interface AnimeItem {
   animeId: string;
   slug?: string;
   href?: string;
+  lastEpisodeId?: string; // Tambahkan ini jika API menyediakannya
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   [key: string]: any;
 }
@@ -36,6 +37,7 @@ export interface GenreItem {
   title: string;   // Contoh: "Action"
   genreId: string; // Contoh: "action"
   href: string;
+    otakudesuUrl?: string; // tambah ini
 }
 
 // Tambahkan ini di file types/anime.ts kamu jika belum ada
@@ -143,4 +145,16 @@ export interface CategoryPaginatedResult {
   totalPages: number;
   currentPage: number;
   total: number;
+}
+
+export interface AzAnimeItem {
+  title: string;
+  animeId: string;
+  href: string;
+  otakudesuUrl: string;
+}
+
+export interface AzGroup {
+  startWith: string;
+  animeList: AzAnimeItem[];
 }

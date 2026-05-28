@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Search, Bookmark, Sun, Moon, User, X, LogIn, ChevronDown } from "lucide-react";
+import { Search, Sun, Moon, User, X, LogIn, ChevronDown } from "lucide-react";
 import type { RefObject } from "react";
 import { useRef, useState, useEffect } from "react";
 
@@ -76,9 +76,9 @@ export default function DesktopActions({
       )}
 
       {/* ── Bookmark ── */}
-      <Link href="/bookmarks" className="icon-btn">
+      {/* <Link href="/bookmarks" className="icon-btn">
         <Bookmark size={18} />
-      </Link>
+      </Link> */}
 
       {/* ── Dark mode toggle ── */}
       {mounted && (

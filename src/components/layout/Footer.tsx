@@ -4,7 +4,7 @@ import Link from "next/link";
 
 export default function Footer() {
   return (
-    <footer className="relative w-full border-t" style={{ borderColor: "var(--glass-border)" }}>
+    <footer className="relative w-full border-t mt-20" style={{ borderColor: "var(--glass-border)" }}>
       <div
         className="absolute top-0 left-0 right-0 h-px"
         style={{

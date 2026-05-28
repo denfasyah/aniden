@@ -11,16 +11,9 @@ interface AnimeCardProps {
   infoSuffix?: string;
 }
 
-export default function AnimeCard({ anime, infoSuffix }: AnimeCardProps) {
+export default function AnimeCard({ anime }: AnimeCardProps) {
   const rawDate = anime.latestReleaseDate || anime.lastReleaseDate || "";
 
-  const finalSuffix = infoSuffix
-    ? infoSuffix
-    : rawDate.includes("-")
-      ? rawDate.split("-")[1]?.trim()
-      : anime.lastReleaseDate
-        ? "Tamat"
-        : "";
 
   const cleanDate = rawDate.split("-")[0]?.trim() || "Baru";
 
@@ -79,11 +72,6 @@ export default function AnimeCard({ anime, infoSuffix }: AnimeCardProps) {
           <span className="text-text-muted text-[10px] font-medium sm:text-[11px]">
             {cleanDate}
           </span>
-          {finalSuffix && (
-            <span className="text-text-muted text-[10px] font-medium sm:text-[11px]">
-              - {finalSuffix}
-            </span>
-          )}
         </div>
       </div>
     </Link>

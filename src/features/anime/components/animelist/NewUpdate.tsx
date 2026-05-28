@@ -7,6 +7,7 @@ import CardSkeleton from "@/components/ui/CardSkeleton";
 import { AnimeItem } from "../../types/anime";
 import { getOngoingAnime } from "../../services/animeService";
 import { getRealtimeTime } from "../../utils/animeHelpers";
+import { Zap } from "lucide-react";
 
 // SUB-KOMPONEN SKELETON INTERNAL
 function NewUpdateSkeleton() {
@@ -68,7 +69,8 @@ export default function NewUpdate() {
     <section className="bg-main transition-cinematic mx-auto w-full max-w-5xl px-4 py-10 sm:px-6 lg:px-8">
       {/* HEADER SECTION (Reusable UI Component) */}
       <SectionHeader 
-        title="⚡ New Update" 
+        icon={<Zap size={20} className="text-secondary" />}
+        title="New Update" 
         viewAllHref="/ongoing" 
       />
 

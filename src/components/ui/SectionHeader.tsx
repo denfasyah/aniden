@@ -6,15 +6,17 @@ import { ArrowRight } from "lucide-react";
 
 interface SectionHeaderProps {
   title: string;
+  icon?: React.ReactNode;
   info?: string;
   viewAllHref: string;
 }
 
-export default function SectionHeader({ title, info, viewAllHref }: SectionHeaderProps) {
+export default function SectionHeader({ title, icon, info, viewAllHref }: SectionHeaderProps) {
   return (
     <div className="border-accent mb-6 flex items-center justify-between border-b pb-3">
       <div className="flex flex-col gap-1 sm:flex-row sm:items-baseline sm:gap-3">
-        <h2 className="font-heading text-primary text-xl font-black tracking-tight uppercase sm:text-2xl">
+        <h2 className="font-heading flex gap-2 text-primary text-xl font-black tracking-tight uppercase sm:text-2xl">
+          <span className="flex items-center gap-2 fill-accent"> {icon}  </span>
           {title}
         </h2>
         {info && (

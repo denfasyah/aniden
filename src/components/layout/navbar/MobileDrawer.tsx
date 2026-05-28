@@ -2,7 +2,7 @@
 
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Bookmark, ChevronDown, User, X } from "lucide-react";
+import { ChevronDown, User, X } from "lucide-react";
 import { browseItems } from "@/constants/navItems";
 import NavBrand from "./NavBrand";
 
@@ -118,10 +118,10 @@ export default function MobileDrawer({
               </Link>
 
               {/* Bookmarks */}
-              <Link href="/bookmarks" onClick={() => setMobileOpen(false)} className="mobile-nav-link flex items-center gap-2.5">
+              {/* <Link href="/bookmarks" onClick={() => setMobileOpen(false)} className="mobile-nav-link flex items-center gap-2.5">
                 <Bookmark size={15} />
                 Bookmarks
-              </Link>
+              </Link> */}
             </nav>
 
             <div className="border-t border-(--border-main) px-4 pt-3 pb-6">

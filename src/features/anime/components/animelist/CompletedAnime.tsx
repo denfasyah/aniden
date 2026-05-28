@@ -4,7 +4,7 @@ import React, { useState, useEffect, useRef } from "react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import AnimeCard from "@/components/ui/AnimeCard";
 import CardSkeleton from "@/components/ui/CardSkeleton";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { CheckCircle2, ChevronLeft, ChevronRight } from "lucide-react";
 import { AnimeItem } from "../../types/anime";
 import { getCompletedAnime } from "../../services/animeService";
 
@@ -38,7 +38,7 @@ export default function CompletedAnime() {
   const [mounted, setMounted] = useState(false);
   const [completedAnime, setCompletedAnime] = useState<AnimeItem[]>([]);
   const [loading, setLoading] = useState(true);
-  
+
   const scrollContainerRef = useRef<HTMLDivElement>(null);
 
   // Ambil data menggunakan service yang sudah dipisah
@@ -59,7 +59,7 @@ export default function CompletedAnime() {
     if (scrollContainerRef.current) {
       const { scrollLeft, clientWidth } = scrollContainerRef.current;
       const scrollAmount = clientWidth * 0.75; // Geser 75% dari lebar container
-      
+
       scrollContainerRef.current.scrollTo({
         left: direction === "left" ? scrollLeft - scrollAmount : scrollLeft + scrollAmount,
         behavior: "smooth",
@@ -75,9 +75,10 @@ export default function CompletedAnime() {
   return (
     <section className="bg-main transition-cinematic mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* HEADER SECTION */}
-      <SectionHeader 
-        title="🎬 Completed" 
-        viewAllHref="/completed" 
+      <SectionHeader
+        icon={<CheckCircle2 size={20} className="text-secondary" />}
+        title="Completed"
+        viewAllHref="/completed"
       />
 
       {/* CAROUSEL TRACK WRAPPER */}
@@ -85,7 +86,7 @@ export default function CompletedAnime() {
         {/* Tombol Geser Kiri (Desktop Only) */}
         <button
           onClick={() => handleScroll("left")}
-          className="bg-bg-main/80 border-border-main hover:border-secondary/50 text-main absolute -left-4 top-1/3 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border p-2 shadow-lg opacity-0 transition-all duration-300 backdrop-blur-md hover:scale-105 group-hover/carousel:opacity-100 md:flex"
+          className="bg-bg-main/80 border-border-main hover:border-secondary/50 text-main absolute top-1/3 -left-4 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border p-2 opacity-0 shadow-lg backdrop-blur-md transition-all duration-300 group-hover/carousel:opacity-100 hover:scale-105 md:flex"
           aria-label="Scroll Left"
         >
           <ChevronLeft className="h-5 w-5" />
@@ -94,12 +95,12 @@ export default function CompletedAnime() {
         {/* TRACK CONTAINER ITEMS (Menggunakan snap-proximity agar scroll tombol lebih mulus) */}
         <div
           ref={scrollContainerRef}
-          className="no-scrollbar flex w-full gap-4 overflow-x-auto scroll-smooth py-2 snap-x snap-proximity"
+          className="no-scrollbar flex w-full snap-x snap-proximity gap-4 overflow-x-auto scroll-smooth py-2"
           style={{ scrollbarWidth: "none" }}
         >
           {completedAnime.map((anime) => (
-            <div 
-              key={anime.animeId} 
+            <div
+              key={anime.animeId}
               // Lebar statis valid agar ukurannya presisi mirip New Update kamu
               className="w-36.25 shrink-0 snap-start"
             >
@@ -111,7 +112,7 @@ export default function CompletedAnime() {
         {/* Tombol Geser Kanan (Desktop Only) */}
         <button
           onClick={() => handleScroll("right")}
-          className="bg-bg-main/80 border-border-main hover:border-secondary/50 text-main absolute -right-4 top-1/3 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border p-2 shadow-lg opacity-0 transition-all duration-300 backdrop-blur-md hover:scale-105 group-hover/carousel:opacity-100 md:flex"
+          className="bg-bg-main/80 border-border-main hover:border-secondary/50 text-main absolute top-1/3 -right-4 z-20 hidden -translate-y-1/2 items-center justify-center rounded-full border p-2 opacity-0 shadow-lg backdrop-blur-md transition-all duration-300 group-hover/carousel:opacity-100 hover:scale-105 md:flex"
           aria-label="Scroll Right"
         >
           <ChevronRight className="h-5 w-5" />

@@ -6,10 +6,13 @@ import {
   AnimeDetailData, 
   ApiResponseGeneric, 
   EpisodeStreamData,
-  CategoryPaginatedResult
+  CategoryPaginatedResult,
+  AzGroup
 } from "../types/anime";
 
+
 const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ITEMS_PER_PAGE = 12;
 
 export async function getOngoingAnime(): Promise<AnimeItem[]> {
@@ -132,55 +135,58 @@ export async function getEpisodeStream(episodeId: string): Promise<EpisodeStream
 
 
 
-const cache: Record<string, AnimeItem[]> = {};
-
-async function fetchAllPages(endpoint: string): Promise<AnimeItem[]> {
-  let allAnime: AnimeItem[] = [];
-  let page = 1;
-
-  while (true) {
-    const res = await fetch(`${BASE_URL}/${endpoint}?page=${page}`, { cache: "no-store" });
-    if (!res.ok) break;
-
-    const responseData = await res.json();
-    const pageList: AnimeItem[] = responseData.data?.animeList ?? [];
-
-    if (pageList.length === 0) break;
-
-    allAnime = [...allAnime, ...pageList];
-
-    const hasNextPage: boolean = responseData.pagination?.hasNextPage ?? false;
-    if (!hasNextPage) break;
-    page++;
-    await new Promise((r) => setTimeout(r, 300));
-  }
-
-  return allAnime;
-}
 
 export async function getCategoryAnimePaginated(
   endpoint: string,
   page = 1
 ): Promise<CategoryPaginatedResult> {
   try {
-    if (!cache[endpoint]) {
-      cache[endpoint] = await fetchAllPages(endpoint);
-    }
+    const res = await fetch(`${BASE_URL}/${endpoint}?page=${page}`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Gagal fetch");
 
-    const all = cache[endpoint];
-    const total = all.length;
-    const totalPages = Math.ceil(total / ITEMS_PER_PAGE);
-    const sliced = all.slice((page - 1) * ITEMS_PER_PAGE, page * ITEMS_PER_PAGE);
+    const responseData = await res.json();
+    const pageList: AnimeItem[] = responseData.data?.animeList ?? [];
 
-    return { animeList: sliced, currentPage: page, totalPages, total };
+    // --- PROSES PENGAMBILAN SKOR PARALEL ---
+    // Kita perkaya data animeList dengan skor dari endpoint detail
+    const animeListWithScore = await Promise.all(
+      pageList.map(async (anime) => {
+        // Jika skor sudah ada di response API, gunakan itu. 
+        // Jika tidak, fetch ke endpoint detail (fetchScoreDetail).
+        const score = (anime.score && anime.score !== "0.0") 
+          ? anime.score 
+          : await fetchScoreDetail(anime.animeId);
+        
+        return {
+          ...anime,
+          score,
+        };
+      })
+    );
+    // ----------------------------------------
+
+    return { 
+      animeList: animeListWithScore, // Gunakan data yang sudah ada skornya
+      currentPage: page, 
+      totalPages: responseData.pagination?.lastPage || 10, 
+      total: responseData.pagination?.total || 100 
+    };
   } catch (error) {
-    console.error(`Error getCategoryAnimePaginated [${endpoint}]:`, error);
-    delete cache[endpoint];
+    console.error("Error fetching category with scores:", error);
     return { animeList: [], currentPage: page, totalPages: 1, total: 0 };
   }
 }
 
-export function clearCategoryCache(endpoint?: string) {
-  if (endpoint) delete cache[endpoint];
-  else Object.keys(cache).forEach((k) => delete cache[k]);
+
+export async function getAzList(): Promise<AzGroup[]> {
+  try {
+    const res = await fetch(`${BASE_URL}/anime`, { cache: "no-store" });
+    if (!res.ok) throw new Error("Gagal fetch A-Z list");
+
+    const response = await res.json();
+    return response.data?.list || [];
+  } catch (error) {
+    console.error("Error getAzList:", error);
+    return [];
+  }
 }

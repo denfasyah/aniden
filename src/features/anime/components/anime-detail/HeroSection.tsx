@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { ArrowLeft, Star, Clock, Calendar, Bookmark } from "lucide-react";
+import { ArrowLeft, Star, Clock, Calendar } from "lucide-react";
 import { AnimeDetailData } from "../../types/anime";
 
 interface HeroSectionProps {
@@ -54,9 +54,9 @@ export default function HeroSection({ anime, animeId }: HeroSectionProps) {
                   : "N/A"}
               </div>
 
-              <button className="bg-surface/80 hover:bg-surface border-border-main/60 text-main rounded-lg border p-1.5 shadow-sm transition-colors">
+              {/* <button className="bg-surface/80 hover:bg-surface border-border-main/60 text-main rounded-lg border p-1.5 shadow-sm transition-colors">
                 <Bookmark className="h-3.5 w-3.5" />
-              </button>
+              </button> */}
 
               <div className="border-border-main/30 flex items-center gap-1 border-l pl-2.5 opacity-90">
                 <Clock className="text-main/60 h-3.5 w-3.5" />

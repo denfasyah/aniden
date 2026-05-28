@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from "react";
 import Link from "next/link";
-import { ChevronRight, Rabbit } from "lucide-react";
+import { Calendar, ChevronRight, Rabbit } from "lucide-react";
 import SectionHeader from "@/components/ui/SectionHeader";
 import { DaySchedule } from "../../types/anime";
 import { getAnimeSchedule } from "../../services/animeService";
@@ -88,7 +88,11 @@ export default function AnimeSchedule() {
   return (
     <section className="bg-main transition-cinematic mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* HEADER SECTION */}
-      <SectionHeader title="📅 Jadwal Rilis" viewAllHref="/schedule" />
+      <SectionHeader
+        icon={<Calendar size={20} className="text-secondary" />}
+        title="Jadwal Rilis"
+        viewAllHref="/schedule"
+      />
 
       {/* CONTAINER SLIDER CAPSULE PILLS */}
       <div className="w-full overflow-hidden pt-1 pb-5">

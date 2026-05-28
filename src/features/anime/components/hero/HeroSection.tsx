@@ -4,7 +4,7 @@ import { useState, useEffect, useCallback, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
-import { Play, Info, Tv, ChevronLeft, ChevronRight } from "lucide-react";
+import { Play, Tv, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTheme } from "next-themes";
 
 interface AnimeItem {
@@ -31,7 +31,10 @@ function generateSynopsis(title: string): string {
 
 function HeroSkeleton() {
   return (
-    <div className="relative w-full overflow-hidden" style={{ height: "480px", background: "var(--surface)" }}>
+    <div
+      className="relative w-full overflow-hidden"
+      style={{ height: "480px", background: "var(--surface)" }}
+    >
       <div className="absolute inset-0 animate-pulse" style={{ background: "var(--elevated)" }} />
       <div className="relative z-10 flex h-full items-center">
         <div className="mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8">
@@ -46,7 +49,10 @@ function HeroSkeleton() {
                 <div className="h-11 w-28 rounded-xl" style={{ background: "var(--elevated)" }} />
               </div>
             </div>
-            <div className="hidden md:block w-48 h-72 rounded-2xl shrink-0" style={{ background: "var(--elevated)" }} />
+            <div
+              className="hidden h-72 w-48 shrink-0 rounded-2xl md:block"
+              style={{ background: "var(--elevated)" }}
+            />
           </div>
         </div>
       </div>
@@ -155,13 +161,21 @@ export default function HeroSection() {
 
   // Nav/control button style
   const controlBtnStyle = isDark
-    ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.15)", color: "rgba(255,255,255,0.8)" }
-    : { background: "rgba(0,0,0,0.06)", border: "1px solid rgba(0,0,0,0.12)", color: "rgba(0,0,0,0.6)" };
+    ? {
+        background: "rgba(255,255,255,0.08)",
+        border: "1px solid rgba(255,255,255,0.15)",
+        color: "rgba(255,255,255,0.8)",
+      }
+    : {
+        background: "rgba(0,0,0,0.06)",
+        border: "1px solid rgba(0,0,0,0.12)",
+        color: "rgba(0,0,0,0.6)",
+      };
 
   // Detail button style
-  const detailBtnStyle = isDark
-    ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)" }
-    : { background: "rgba(0,0,0,0.06)", border: "1px solid rgba(0,0,0,0.15)", color: "rgba(0,0,0,0.8)" };
+  // const detailBtnStyle = isDark
+  //   ? { background: "rgba(255,255,255,0.08)", border: "1px solid rgba(255,255,255,0.18)", color: "rgba(255,255,255,0.9)", backdropFilter: "blur(8px)" }
+  //   : { background: "rgba(0,0,0,0.06)", border: "1px solid rgba(0,0,0,0.15)", color: "rgba(0,0,0,0.8)" };
 
   // Dot inactive
   const dotInactive = isDark ? "rgba(255,255,255,0.3)" : "rgba(0,0,0,0.2)";
@@ -197,15 +211,16 @@ export default function HeroSection() {
 
       {/* ── Overlay gradient ── */}
       <div className="absolute inset-0 z-1" style={{ background: overlayGradient }} />
-      <div className="absolute bottom-0 left-0 right-0 z-1 h-24" style={{ background: bottomFade }} />
+      <div
+        className="absolute right-0 bottom-0 left-0 z-1 h-24"
+        style={{ background: bottomFade }}
+      />
 
       {/* ── Content ── */}
-      <div className="relative z-10 h-full mx-auto max-w-5xl px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 mx-auto h-full max-w-5xl px-4 sm:px-6 lg:px-8">
         <div className="flex h-full items-center justify-between gap-6">
-
           {/* ── Left ── */}
-          <div className="flex flex-1 flex-col gap-4 max-w-lg">
-
+          <div className="flex max-w-lg flex-1 flex-col gap-4">
             {/* Title */}
             <AnimatePresence mode="wait">
               <motion.h1
@@ -214,7 +229,7 @@ export default function HeroSection() {
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -12 }}
                 transition={{ duration: 0.45, ease: "easeOut" }}
-                className="text-3xl font-black leading-tight tracking-tight md:text-4xl lg:text-5xl line-clamp-1"
+                className="line-clamp-1 text-3xl leading-tight font-black tracking-tight md:text-4xl lg:text-5xl"
                 style={{ color: titleColor }}
               >
                 {current.title}
@@ -288,7 +303,8 @@ export default function HeroSection() {
                     whileTap={{ scale: 0.97 }}
                     className="flex items-center gap-2 rounded-xl px-6 py-3 text-sm font-bold text-white"
                     style={{
-                      background: "linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, var(--accent)))",
+                      background:
+                        "linear-gradient(135deg, var(--primary), color-mix(in srgb, var(--primary) 70%, var(--accent)))",
                       boxShadow: "0 0 20px color-mix(in srgb, var(--primary) 45%, transparent)",
                     }}
                   >
@@ -296,7 +312,7 @@ export default function HeroSection() {
                     Tonton Sekarang
                   </motion.button>
                 </Link>
-
+                {/* 
                 <Link href={`/anime/${slug}`}>
                   <motion.button
                     whileHover={{ scale: 1.04 }}
@@ -307,7 +323,7 @@ export default function HeroSection() {
                     <Info size={15} />
                     Detail
                   </motion.button>
-                </Link>
+                </Link> */}
               </motion.div>
             </AnimatePresence>
           </div>
@@ -351,9 +367,8 @@ export default function HeroSection() {
       </div>
 
       {/* ── Bottom Controls ── */}
-      <div className="absolute bottom-5 left-0 right-0 z-10">
+      <div className="absolute right-0 bottom-5 left-0 z-10">
         <div className="mx-auto flex max-w-5xl items-center justify-between px-4 sm:px-6 lg:px-8">
-
           {/* Dots */}
           <div className="flex items-center gap-2">
             {animeList.map((anime, i) => (
@@ -366,10 +381,13 @@ export default function HeroSection() {
                 {i === currentIndex ? (
                   <div
                     className="relative h-2 overflow-hidden rounded-full"
-                    style={{ width: "36px", background: isDark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.15)" }}
+                    style={{
+                      width: "36px",
+                      background: isDark ? "rgba(255,255,255,0.2)" : "rgba(0,0,0,0.15)",
+                    }}
                   >
                     <motion.div
-                      className="absolute left-0 top-0 h-full rounded-full"
+                      className="absolute top-0 left-0 h-full rounded-full"
                       style={{ background: "var(--primary)", width: `${progress}%` }}
                     />
                   </div>

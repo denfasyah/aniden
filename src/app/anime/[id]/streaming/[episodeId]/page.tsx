@@ -32,7 +32,7 @@ export default async function StreamingPage({
           <div className="flex items-center gap-2 text-[10px] font-bold tracking-widest uppercase opacity-50">
             <Link href="/" className="hover:text-secondary">Home</Link>
             <ChevronRight className="h-3 w-3" />
-            <Link href={`/anime/${id}`} className="hover:text-secondary">{anime.title}</Link>
+            <Link href={`/anime/${id}`} className="hover:text-secondary line-clamp-1">{anime.title}</Link>
             <ChevronRight className="h-3 w-3" />
             <span className="text-secondary">Streaming</span>
           </div>

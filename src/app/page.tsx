@@ -12,10 +12,6 @@ export default function Home() {
       <GenreSection />
       <CompletedAnime />
       <ScheduleList />
-    <h1 className="my-40"></h1>
-
-
- 
 
     </div>
   );

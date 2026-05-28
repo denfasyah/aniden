@@ -3,7 +3,7 @@
 import React, { useState, useEffect, useRef } from "react";
 import { useRouter } from "next/navigation";
 import SectionHeader from "@/components/ui/SectionHeader";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, Grid3X3 } from "lucide-react";
 import { GenreItem } from "../../types/anime";
 import { getAnimeGenres } from "../../services/animeService";
 
@@ -95,7 +95,8 @@ export default function GenreList() {
     <section className="bg-main transition-cinematic mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8">
       {/* HEADER SECTION - Konsisten Menggunakan UI Reusable Component */}
       <SectionHeader 
-        title="✨ Genre" 
+      icon={<Grid3X3 size={20} className="text-secondary" />}
+        title="Genre" 
         viewAllHref="/genres" 
       />
 

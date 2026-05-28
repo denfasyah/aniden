@@ -20,7 +20,7 @@ interface AnimeCategoryPageProps {
 
 function Skeleton() {
   return (
-    <div className="mx-auto w-full max-w-5xl animate-pulse px-4 py-10 sm:px-6 lg:px-8">
+    <div className="mx-auto w-full mt-10 max-w-5xl animate-pulse px-4 py-10 sm:px-6 lg:px-8">
       <div className="mb-6 flex items-center justify-between">
         <div className="bg-border-main h-7 w-40 rounded-lg" />
         <div className="bg-border-main h-5 w-28 rounded-lg" />
