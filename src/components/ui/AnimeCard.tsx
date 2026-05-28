@@ -1,4 +1,4 @@
-"use client";
+
 
 import React from "react";
 import Image from "next/image";
@@ -15,7 +15,7 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
   const rawDate = anime.latestReleaseDate || anime.lastReleaseDate || "";
 
 
-  const cleanDate = rawDate.split("-")[0]?.trim() || "Baru";
+  const cleanDate = rawDate.split("-")[0]?.trim() || "";
 
   return (
     <Link

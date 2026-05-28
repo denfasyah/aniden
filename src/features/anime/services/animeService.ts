@@ -190,3 +190,26 @@ export async function getAzList(): Promise<AzGroup[]> {
     return [];
   }
 }
+
+export async function getGenreDetail(genreId: string, page: number = 1): Promise<CategoryPaginatedResult> {
+  try {
+    const res = await fetch(`${BASE_URL}/genres/${genreId}?page=${page}`, { 
+      cache: "no-store" 
+    });
+    
+    if (!res.ok) throw new Error("Gagal fetch data genre");
+
+    const json = await res.json();
+    
+    // Sesuaikan dengan struktur JSON dari API Anda (image_bbfb3f.jpg)
+    return {
+      animeList: json.data?.animeList || [],
+      currentPage: json.pagination?.currentPage || page,
+      totalPages: json.pagination?.totalPages || 1,
+      total: json.pagination?.total || 0,
+    };
+  } catch (error) {
+    console.error("Error fetching genre:", error);
+    return { animeList: [], currentPage: page, totalPages: 1, total: 0 };
+  }
+}
