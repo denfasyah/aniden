@@ -9,13 +9,13 @@ import {
   AzGroup,
 } from "../types/anime";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL = "/api/proxy/";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ITEMS_PER_PAGE = 12;
 
 export async function getOngoingAnime(): Promise<AnimeItem[]> {
   try {
-    const res = await fetch(`${BASE_URL}/ongoing`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/ongoing`, { cache: "no-store" });
     if (!res.ok) throw new Error("Gagal fetch ongoing data");
 
     const responseData = await res.json();
@@ -59,7 +59,7 @@ export async function getAnimeGenres(): Promise<GenreItem[]> {
 
 export async function getCompletedAnime(): Promise<AnimeItem[]> {
   try {
-    const res = await fetch(`${BASE_URL}/completed`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/complete`, { cache: "no-store" });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch completed anime: ${res.status}`);
@@ -89,21 +89,22 @@ async function fetchScoreDetail(animeId: string): Promise<string> {
 
 export async function getAnimeSchedule(): Promise<DaySchedule[]> {
   try {
-    const res = await fetch(`${BASE_URL}/schedule`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/schedule`, { cache: "no-store" });
     if (!res.ok) throw new Error("Gagal mengambil jadwal rilis");
 
     const responseData = await res.json();
     // Membaca wrapper data sesuai response API kamu
-    return responseData.data?.days || responseData.data || [];
+    // return responseData.data?.days || responseData.data || [];
+    return Array.isArray(responseData.data) ? responseData.data : [];
   } catch (error) {
     console.error("Error pada getAnimeSchedule service:", error);
     return [];
   }
 }
 
-export async function getAnimeDetail(animeId: string): Promise<AnimeDetailData | null> {
+export async function getAnimeDetail(slug: string): Promise<AnimeDetailData | null> {
   try {
-    const res = await fetch(`${BASE_URL}/anime/${animeId}`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/${slug}`, { cache: "no-store" });
     if (!res.ok) throw new Error("Gagal fetch detail");
 
     const response: ApiResponseGeneric<AnimeDetailData> = await res.json();

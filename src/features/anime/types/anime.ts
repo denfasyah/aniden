@@ -49,7 +49,8 @@ export interface ScheduleItem {
 
 export interface DaySchedule {
   day: string;
-  animeList: ScheduleItem[];
+  // animeList: ScheduleItem[];
+   anime_list: AnimeItem[];
 }
 
 

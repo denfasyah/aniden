@@ -73,7 +73,8 @@ export default function ScheduleClient() {
   if (schedule.length === 0) return null;
 
   const currentDayData = schedule.find((item) => item.day === activeDay);
-  const animeList = currentDayData?.animeList ?? [];
+  // const animeList = currentDayData?.animeList ?? [];
+    const animeList = currentDayData?.anime_list ?? [];
 
   return (
     <section className="bg-main transition-cinematic mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 mb-10 mt-8">
@@ -99,8 +100,8 @@ export default function ScheduleClient() {
         <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
           {animeList.map((anime) => (
             <Link
-              key={anime.animeId}
-              href={`/anime/${anime.animeId}`}
+              key={anime.slug}
+              href={`/anime/${anime.slug}`}
               className="bg-surface border-border-main hover:border-secondary/40 transition-cinematic group flex items-center justify-between rounded-xl border p-4 shadow-xs"
             >
               <div className="flex items-center gap-3 pr-4">

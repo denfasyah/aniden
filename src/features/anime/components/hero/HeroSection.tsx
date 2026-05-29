@@ -22,7 +22,7 @@ interface ApiResponse {
   data: { animeList: AnimeItem[] };
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+const API_URL = "api/proxy/anime";
 const AUTO_PLAY_DURATION = 7000;
 
 function generateSynopsis(title: string): string {
