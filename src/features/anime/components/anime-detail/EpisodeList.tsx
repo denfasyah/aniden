@@ -121,7 +121,7 @@ export default function EpisodeList({ animeId, episodeList, batch }: EpisodeList
                         className="bg-surface border-border-main/50 hover:border-secondary hover:bg-secondary/5 transition-cinematic group flex h-10.5 items-center justify-between rounded-xl border p-3"
                       >
                         <span className="text-main/90 group-hover:text-secondary transition-cinematic line-clamp-1 text-xs font-bold">
-                          Eps {ep.eps}
+                          Eps {ep.title}
                         </span>
                         <Play className="text-main/30 group-hover:text-secondary transition-cinematic fill-secondary/20 h-3 w-3 shrink-0 opacity-0 group-hover:opacity-100" />
                       </Link>
