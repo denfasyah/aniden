@@ -8,10 +8,10 @@ import {
   AzGroup,
 } from "../types/anime";
 
-// animeService.ts — ganti baris BASE_URL
+
 const BASE_URL =
   typeof window === "undefined"
-    ? process.env.NEXT_PUBLIC_API_URL!          // "https://bintangapi.full.diskon.cloud/api/stream"
+    ? process.env.NEXT_PUBLIC_API_URL!        
     : "/api/proxy";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ITEMS_PER_PAGE = 12;
@@ -137,7 +137,7 @@ export async function getCategoryAnimePaginated(
   page = 1
 ): Promise<CategoryPaginatedResult> {
   try {
-    const res = await fetch(`${BASE_URL}/${endpoint}?page=${page}`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/${endpoint}?page=${page}`, { cache: "no-store" });
     if (!res.ok) throw new Error("Gagal fetch");
 
     const responseData = await res.json();
@@ -218,7 +218,7 @@ export async function getGenreDetail(
 export async function searchAnime(query: string): Promise<AnimeItem[]> {
   try {
     // Pastikan URL di .env sudah benar: NEXT_PUBLIC_API_URL=http://localhost:3001/otakudesu
-    const res = await fetch(`${BASE_URL}/search?q=${encodeURIComponent(query)}`, {
+    const res = await fetch(`${BASE_URL}/anime/search?q=${encodeURIComponent(query)}`, {
       cache: "no-store",
     });
 
