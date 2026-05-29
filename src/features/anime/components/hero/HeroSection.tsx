@@ -6,8 +6,23 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Tv, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { useTheme } from "next-themes";
-import { AnimeItem } from "../../types/anime";
-import { getOngoingAnime } from "../../services/animeService";
+
+interface AnimeItem {
+  title: string;
+  poster: string;
+  episodes: number;
+  releaseDay: string;
+  slug?: string;
+  href?: string;
+}
+
+interface ApiResponse {
+  statusCode: number;
+  ok: boolean;
+  data: { animeList: AnimeItem[] };
+}
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 const AUTO_PLAY_DURATION = 7000;
 
 function generateSynopsis(title: string): string {
