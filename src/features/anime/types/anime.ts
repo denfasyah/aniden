@@ -48,7 +48,8 @@ export interface ScheduleItem {
 }
 
 export interface DaySchedule {
-  day: string;
+  day?: string;
+  title?: string;
   animeList: ScheduleItem[];
 }
 
@@ -76,7 +77,7 @@ export interface AnimeDetailData {
   score: string;
   producers: string;
   status: string;
-  episodes: number;
+  episodes: number | string;
   duration: string;
   aired: string;
   studios: string;
@@ -87,8 +88,9 @@ export interface AnimeDetailData {
     otakudesuUrl: string;
   } | null;
   synopsis: {
-    paragraphs: string[];
-    connections: unknown[];
+    paragraphs?: string[];
+    paragraphList?: string[];
+    connections?: unknown[];
   };
   genreList: GenreItem[];
   episodeList: EpisodeItem[];
@@ -100,7 +102,7 @@ export interface AnimeDetailData {
 export interface StreamServer {
   title: string;
   serverId: string;
-  href: string;
+  href?: string;
 }
 
 export interface StreamQuality {
@@ -116,26 +118,46 @@ export interface DownloadLink {
 export interface DownloadQuality {
   title: string;
   size: string;
-  urls: DownloadLink[];
+  urls?: DownloadLink[];
+  urlList?: DownloadLink[];
 }
 
 export interface EpisodeStreamData {
   title: string;
+  animeId?: string;
   releaseTime: string;
   defaultStreamingUrl: string;
   hasPrevEpisode: boolean;
   prevEpisode: {
     episodeId: string;
+    title?: string;
+    otakudesuUrl?: string;
   } | null;
   hasNextEpisode: boolean;
   nextEpisode: {
     episodeId: string;
+    title?: string;
+    otakudesuUrl?: string;
   } | null;
-  server: {
-    qualities: StreamQuality[];
+  server?: {
+    qualities?: StreamQuality[];
+    qualityList?: StreamQuality[];
   };
-  downloadUrl: {
-    qualities: DownloadQuality[];
+  downloadUrl?: {
+    qualities?: DownloadQuality[];
+    qualityList?: DownloadQuality[];
+  };
+  download?: {
+    qualities?: DownloadQuality[];
+    qualityList?: DownloadQuality[];
+  };
+  info?: {
+    credit?: string;
+    encoder?: string;
+    duration?: string;
+    type?: string;
+    genreList?: GenreItem[];
+    episodeList?: EpisodeItem[];
   };
 }
 

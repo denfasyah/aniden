@@ -9,7 +9,10 @@ import {
   AzGroup,
 } from "../types/anime";
 
-const BASE_URL = process.env.NEXT_PUBLIC_API_URL;
+const BASE_URL =
+  typeof window === "undefined"
+    ? process.env.NEXT_PUBLIC_API_URL!          // "https://bintangapi.full.diskon.cloud/api/stream"
+    : "/api/proxy";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ITEMS_PER_PAGE = 12;
 
@@ -42,7 +45,7 @@ export async function getOngoingAnime(): Promise<AnimeItem[]> {
 
 export async function getAnimeGenres(): Promise<GenreItem[]> {
   try {
-    const res = await fetch(`${BASE_URL}/genres`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/genre`, { cache: "no-store" });
 
     if (!res.ok) {
       throw new Error(`Failed to fetch genres: ${res.status}`);
@@ -93,8 +96,8 @@ export async function getAnimeSchedule(): Promise<DaySchedule[]> {
     if (!res.ok) throw new Error("Gagal mengambil jadwal rilis");
 
     const responseData = await res.json();
-    // Membaca wrapper data sesuai response API kamu
-    return responseData.data?.days || responseData.data || [];
+    // Membaca wrapper data sesuai response API kamu dengan fallback ke scheduleList
+    return responseData.data?.scheduleList || responseData.data?.days || responseData.data || [];
   } catch (error) {
     console.error("Error pada getAnimeSchedule service:", error);
     return [];
@@ -106,9 +109,12 @@ export async function getAnimeDetail(animeId: string): Promise<AnimeDetailData |
     const res = await fetch(`${BASE_URL}/anime/${animeId}`, { cache: "no-store" });
     if (!res.ok) throw new Error("Gagal fetch detail");
 
-    const response: ApiResponseGeneric<AnimeDetailData> = await res.json();
-
-    return response.ok ? response.data : null;
+    const response = await res.json();
+    if (response && (response.ok || response.statusCode === 200 || response.data)) {
+      // API V2 baru mengembalikan objek detail di dalam data.details
+      return response.data?.details || response.data;
+    }
+    return null;
   } catch (error) {
     console.error("Error di getAnimeDetail:", error);
     return null;
@@ -122,10 +128,27 @@ export async function getEpisodeStream(episodeId: string): Promise<EpisodeStream
     const res = await fetch(`${BASE_URL}/episode/${episodeId}`, { cache: "no-store" });
     if (!res.ok) return null;
 
-    const response: ApiResponseGeneric<EpisodeStreamData> = await res.json();
-    return response.ok ? response.data : null;
+    const response = await res.json();
+    if (response && (response.ok || response.statusCode === 200 || response.data)) {
+      return response.data?.details || response.data;
+    }
+    return null;
   } catch (error) {
     console.error("Gagal fetch stream:", error);
+    return null;
+  }
+}
+
+export async function getServerUrl(serverId: string): Promise<string | null> {
+  try {
+    const res = await fetch(`${BASE_URL}/server/${serverId}`, { cache: "no-store" });
+    if (!res.ok) return null;
+
+    const response = await res.json();
+    const url = response.data?.details?.url || response.data?.url || null;
+    return url;
+  } catch (error) {
+    console.error("Gagal fetch server URL:", error);
     return null;
   }
 }

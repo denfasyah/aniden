@@ -59,21 +59,55 @@ export default function ScheduleClient() {
     // eslint-disable-next-line react-hooks/set-state-in-effect
     setMounted(true);
     async function fetchScheduleData() {
-      const data = await getAnimeSchedule();
-      setSchedule(data);
-      if (data.length > 0) {
-        setActiveDay(data[0].day);
+      try {
+        const data = await getAnimeSchedule();
+        
+        let scheduleArray: DaySchedule[] = [];
+        if (data && Array.isArray(data)) {
+          scheduleArray = data;
+        } else if (data && typeof data === "object") {
+          const anyData = data as any;
+          if (Array.isArray(anyData.data?.scheduleList)) {
+            scheduleArray = anyData.data.scheduleList;
+          } else if (Array.isArray(anyData.scheduleList)) {
+            scheduleArray = anyData.scheduleList;
+          } else if (Array.isArray(anyData.data?.days)) {
+            scheduleArray = anyData.data.days;
+          } else if (Array.isArray(anyData.days)) {
+            scheduleArray = anyData.days;
+          } else if (Array.isArray(anyData.data)) {
+            scheduleArray = anyData.data;
+          }
+        }
+
+        if (Array.isArray(scheduleArray) && scheduleArray.length > 0) {
+          setSchedule(scheduleArray);
+          const firstDay = scheduleArray[0].title || scheduleArray[0].day || "";
+          setActiveDay(firstDay);
+        } else {
+          setSchedule([]);
+        }
+      } catch (error) {
+        console.error("Error fetching schedule data inside detail component:", error);
+        setSchedule([]);
+      } finally {
+        setLoading(false);
       }
-      setLoading(false);
     }
     fetchScheduleData();
   }, []);
 
   if (!mounted || loading) return <ScheduleSkeleton />;
-  if (schedule.length === 0) return null;
+  
+  if (!Array.isArray(schedule) || schedule.length === 0) return null;
 
-  const currentDayData = schedule.find((item) => item.day === activeDay);
-  const animeList = currentDayData?.animeList ?? [];
+  const currentDayData = Array.isArray(schedule)
+    ? schedule.find((item) => item && (item.title || item.day) === activeDay)
+    : undefined;
+    
+  const animeList = currentDayData?.animeList && Array.isArray(currentDayData.animeList)
+    ? currentDayData.animeList
+    : [];
 
   return (
     <section className="bg-main transition-cinematic mx-auto w-full max-w-5xl px-4 py-6 sm:px-6 lg:px-8 mb-10 mt-8">
@@ -84,14 +118,17 @@ export default function ScheduleClient() {
           className="no-scrollbar flex w-full gap-2 overflow-x-auto scroll-smooth snap-x snap-mandatory style-remove-scroll"
           style={{ scrollbarWidth: "none", msOverflowStyle: "none" }}
         >
-          {schedule.map((item) => (
-            <SchedulePill
-              key={item.day}
-              day={item.day}
-              isActive={item.day === activeDay}
-              onClick={setActiveDay}
-            />
-          ))}
+          {schedule.map((item, idx) => {
+            const dayName = item.title || item.day || `Hari ${idx + 1}`;
+            return (
+              <SchedulePill
+                key={dayName}
+                day={dayName}
+                isActive={dayName === activeDay}
+                onClick={setActiveDay}
+              />
+            );
+          })}
         </div>
       </div>
 

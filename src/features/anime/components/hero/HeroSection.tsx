@@ -6,23 +6,8 @@ import Link from "next/link";
 import { motion, AnimatePresence } from "framer-motion";
 import { Play, Tv, ChevronLeft, ChevronRight, Heart } from "lucide-react";
 import { useTheme } from "next-themes";
-
-interface AnimeItem {
-  title: string;
-  poster: string;
-  episodes: number;
-  releaseDay: string;
-  slug?: string;
-  href?: string;
-}
-
-interface ApiResponse {
-  statusCode: number;
-  ok: boolean;
-  data: { animeList: AnimeItem[] };
-}
-
-const API_URL = process.env.NEXT_PUBLIC_API_URL;
+import { AnimeItem } from "../../types/anime";
+import { getOngoingAnime } from "../../services/animeService";
 const AUTO_PLAY_DURATION = 7000;
 
 function generateSynopsis(title: string): string {
@@ -78,14 +63,14 @@ export default function HeroSection() {
   useEffect(() => {
     async function fetchOngoing() {
       try {
-        const res = await fetch(`${API_URL}/ongoing`);
-        const json: ApiResponse = await res.json();
-        if (json.ok && json.data.animeList.length > 0) {
-          setAnimeList(json.data.animeList.slice(0, 5));
+        const data = await getOngoingAnime();
+        if (data && Array.isArray(data) && data.length > 0) {
+          setAnimeList(data.slice(0, 5));
         } else {
           setError(true);
         }
-      } catch {
+      } catch (err) {
+        console.error("Error fetching ongoing anime in HeroSection:", err);
         setError(true);
       } finally {
         setLoading(false);
@@ -297,7 +282,7 @@ export default function HeroSection() {
                 transition={{ duration: 0.4, delay: 0.2 }}
                 className="flex flex-wrap items-center gap-3 pt-1"
               >
-                <Link href={`/anime/${slug}`}>
+                <Link href={`/anime/${current.animeId}`}>
                   <motion.button
                     whileHover={{ scale: 1.04 }}
                     whileTap={{ scale: 0.97 }}

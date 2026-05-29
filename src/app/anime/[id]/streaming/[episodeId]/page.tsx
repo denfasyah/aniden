@@ -99,29 +99,36 @@ export default async function StreamingPage({
                 <h3 className="text-xs font-black tracking-widest uppercase">Download Links</h3>
               </div>
               <div className="divide-y divide-border-main/20">
-                {stream.downloadUrl.qualities.map((qual, idx) => (
-                  <div key={idx} className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
-                    <div className="flex items-center gap-3">
-                      <span className="bg-secondary/10 text-secondary rounded-md px-2 py-1 text-[10px] font-black uppercase">
-                        {qual.title}
-                      </span>
-                      <span className="text-[11px] font-bold opacity-50">{qual.size}</span>
-                    </div>
-                    <div className="flex flex-wrap gap-2">
-                      {qual.urls.map((link, lIdx) => (
-                        <a
-                          key={lIdx}
-                          href={link.url}
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="bg-surface-secondary hover:bg-secondary border-border-main/40 hover:text-black hover:border-secondary transition-cinematic rounded-lg border px-3 py-1.5 text-[10px] font-bold"
-                        >
-                          {link.title}
-                        </a>
-                      ))}
-                    </div>
-                  </div>
-                ))}
+                {(stream.download?.qualityList || 
+                  stream.download?.qualities || 
+                  stream.downloadUrl?.qualityList || 
+                  stream.downloadUrl?.qualities || 
+                  []).map((qual, idx) => {
+                    const links = qual.urlList || qual.urls || [];
+                    return (
+                      <div key={idx} className="flex flex-col gap-3 p-5 sm:flex-row sm:items-center sm:justify-between">
+                        <div className="flex items-center gap-3">
+                          <span className="bg-secondary/10 text-secondary rounded-md px-2 py-1 text-[10px] font-black uppercase">
+                            {qual.title}
+                          </span>
+                          <span className="text-[11px] font-bold opacity-50">{qual.size}</span>
+                        </div>
+                        <div className="flex flex-wrap gap-2">
+                          {links.map((link, lIdx) => (
+                            <a
+                              key={lIdx}
+                              href={link.url}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="bg-surface-secondary hover:bg-secondary border-border-main/40 hover:text-black hover:border-secondary transition-cinematic rounded-lg border px-3 py-1.5 text-[10px] font-bold"
+                            >
+                              {link.title}
+                            </a>
+                          ))}
+                        </div>
+                      </div>
+                    );
+                })}
               </div>
             </div>
           </div>
@@ -149,7 +156,7 @@ export default async function StreamingPage({
                     ))}
                   </div>
                   <p className="text-[10px] font-medium opacity-50 leading-relaxed line-clamp-3">
-                    {anime.synopsis.paragraphs[0]}
+                    {anime.synopsis?.paragraphList?.[0] || anime.synopsis?.paragraphs?.[0] || ""}
                   </p>
                 </div>
               </div>

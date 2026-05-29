@@ -3,6 +3,7 @@
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import { AnimeDetailData } from "@/features/anime/types/anime";
+import { getAnimeDetail } from "@/features/anime/services/animeService";
 import HeroSection from "./HeroSection";
 import SynopsisSection from "./SynopsisSection";
 import EpisodeList from "./EpisodeList";
@@ -43,19 +44,12 @@ export default function AnimeDetailClient({ animeId }: AnimeDetailClientProps) {
     const fetchAnimeDetail = async () => {
       try {
         setLoading(true);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/otakudesu";
-        const response = await fetch(`${apiUrl}/anime/${animeId}`);
+        const data = await getAnimeDetail(animeId);
 
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data dari server API scraping");
-        }
-
-        const json = await response.json();
-
-        if (json.ok && json.data) {
-          setAnime(json.data);
+        if (data) {
+          setAnime(data);
         } else {
-          throw new Error(json.message || "Data anime tidak ditemukan");
+          throw new Error("Data anime tidak ditemukan");
         }
       } catch (err) {
         console.error("Fetch Error:", err);
@@ -88,6 +82,9 @@ export default function AnimeDetailClient({ animeId }: AnimeDetailClientProps) {
     );
   }
 
+  // Ambil paragraf sinopsis dari paragraphList (API V2) atau paragraphs (fallback)
+  const synopsisParagraphs = anime.synopsis?.paragraphList || anime.synopsis?.paragraphs || [];
+
   return (
     <div className="bg-main text-main min-h-screen w-full pb-16">
       <HeroSection anime={anime} animeId={animeId} />
@@ -95,7 +92,7 @@ export default function AnimeDetailClient({ animeId }: AnimeDetailClientProps) {
       <div className="relative z-20 mx-auto mt-10 max-w-5xl px-4">
         <div className="grid grid-cols-1 items-start gap-8 lg:grid-cols-3">
           <div className="space-y-8 lg:col-span-2">
-            <SynopsisSection paragraphs={anime.synopsis?.paragraphs ?? []} />
+            <SynopsisSection paragraphs={synopsisParagraphs} />
             <EpisodeList
               animeId={animeId}
               episodeList={anime.episodeList}
