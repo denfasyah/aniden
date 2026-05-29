@@ -2,7 +2,7 @@ import { Grid3X3, CheckCircle2, AlignLeft } from "lucide-react";
 import type { DropdownItem } from "@/types/navbar";
 
 export const browseItems: DropdownItem[] = [
-  { label: "Genres",    href: "/genres",    icon: <Grid3X3 size={15} />,      description: "Filter by genre" },
+  // { label: "Genres",    href: "/genres",    icon: <Grid3X3 size={15} />,      description: "Filter by genre" },
   // { label: "Popular",   href: "/popular",   icon: <Flame size={15} />,        description: "Trending now" },
   // { label: "Season",    href: "/season",    icon: <CalendarDays size={15} />,  description: "Current & past seasons" },
   { label: "Completed", href: "/completed", icon: <CheckCircle2 size={15} />, description: "Finished series" },

@@ -41,13 +41,7 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
 
   // Cinema mode and expanded qualities states
   const [cinemaMode, setCinemaMode] = useState(false);
-  const [expandedQualities, setExpandedQualities] = useState<Record<number, boolean>>(() => {
-    const initial: Record<number, boolean> = {};
-    for (let i = 0; i < 20; i++) {
-      initial[i] = true;
-    }
-    return initial;
-  });
+  const [expandedQualities, setExpandedQualities] = useState<Record<number, boolean>>({});
 
   const toggleQualityExpand = (idx: number) => {
     setExpandedQualities((prev) => ({
@@ -212,15 +206,18 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
                   </button>
                 </div>
 
-                {/* Grid of Qualities */}
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                 {/* Grid of Qualities (Side-by-side even on mobile) */}
+                <div 
+                  className="grid gap-2"
+                  style={{ gridTemplateColumns: `repeat(${qualityList.length}, minmax(0, 1fr))` }}
+                >
                   {qualityList.map((quality, qIdx) => {
                     const colors = getQualityColors(quality.title);
                     const isExpanded = expandedQualities[qIdx] ?? false;
                     
-                    let titleText = quality.title.trim();
-                    if (!titleText.toLowerCase().includes("mirror")) {
-                      titleText = `Mirror ${titleText}`;
+                    let cleanTitle = quality.title.trim();
+                    if (cleanTitle.toLowerCase().startsWith("mirror")) {
+                      cleanTitle = cleanTitle.replace(/mirror/i, "").trim();
                     }
 
                     return (
@@ -228,10 +225,13 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
                         {/* Header Quality Button */}
                         <button
                           onClick={() => toggleQualityExpand(qIdx)}
-                          className={`w-full py-3 px-4 flex items-center justify-center gap-2 text-white font-black text-xs uppercase tracking-wider transition-all duration-300 ${colors.headerBg}`}
+                          className={`w-full py-3 px-1 sm:px-4 flex flex-col sm:flex-row items-center justify-center gap-1 sm:gap-2 text-white font-black text-[10px] sm:text-xs uppercase tracking-wide transition-all duration-300 ${colors.headerBg}`}
                         >
-                          <Monitor className="h-4.5 w-4.5 text-white fill-white/20 shrink-0" />
-                          <span>{titleText}</span>
+                          <Monitor className="h-3.5 w-3.5 sm:h-4.5 sm:w-4.5 text-white fill-white/20 shrink-0" />
+                          <span className="text-center truncate">
+                            <span className="hidden min-[400px]:inline">Mirror </span>
+                            <span>{cleanTitle}</span>
+                          </span>
                         </button>
 
                         {/* Collapsible Mirror Server list */}
@@ -245,21 +245,21 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
                                   key={sIdx}
                                   onClick={() => handleServerClick(server.serverId)}
                                   disabled={isLoading || isPending}
-                                  className={`w-full py-3 px-4 text-center text-xs font-bold transition-all block relative ${
+                                  className={`w-full py-3 px-1 sm:px-4 text-center text-[10px] sm:text-xs font-bold transition-all block relative truncate ${
                                     isActive
                                       ? "bg-secondary/15 text-secondary border-l-4 border-l-secondary"
                                       : "text-zinc-400 hover:text-white hover:bg-white/5"
                                   } ${isLoading ? "opacity-60 cursor-wait" : ""}`}
                                 >
                                   {isLoading ? (
-                                    <div className="flex items-center justify-center gap-1.5">
-                                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
-                                      <span>Loading...</span>
+                                    <div className="flex items-center justify-center gap-1">
+                                      <Loader2 className="h-3 w-3 animate-spin shrink-0" />
+                                      <span className="hidden sm:inline">Loading...</span>
                                     </div>
                                   ) : (
-                                    <div className="flex items-center justify-center gap-1.5">
-                                      {isActive && <Play className="h-3 w-3 fill-current shrink-0" />}
-                                      <span>{server.title}</span>
+                                    <div className="flex items-center justify-center gap-1 truncate">
+                                      {isActive && <Play className="h-2.5 w-2.5 sm:h-3 sm:w-3 fill-current shrink-0" />}
+                                      <span className="truncate">{server.title}</span>
                                     </div>
                                   )}
                                 </button>
