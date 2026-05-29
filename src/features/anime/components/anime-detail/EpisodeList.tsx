@@ -28,7 +28,7 @@ export default function EpisodeList({ animeId, episodeList, batch }: EpisodeList
   const sortedEpisodes = useMemo(() => {
     if (!episodeList) return [];
     const baseList = [...episodeList];
-    if (isNewestFirst) {
+    if (isNewestFirst) { 
       return baseList.reverse();
     }
     return baseList;

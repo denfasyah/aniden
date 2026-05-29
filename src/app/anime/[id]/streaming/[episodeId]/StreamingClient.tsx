@@ -34,15 +34,53 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
 
   // Player state
   const [iframeSrc, setIframeSrc] = useState(stream.defaultStreamingUrl);
-  const [activeQualityIdx, setActiveQualityIdx] = useState<number | null>(null);
   const [activeServerId, setActiveServerId] = useState<string | null>(null);
   const [isPending, startTransition] = useTransition();
   const [loadingServerId, setLoadingServerId] = useState<string | null>(null);
   const iframeRef = useRef<HTMLIFrameElement>(null);
 
-  // Switch quality tab: toggle collapse/expand
-  const handleQualityClick = (idx: number) => {
-    setActiveQualityIdx((prev) => (prev === idx ? null : idx));
+  // Cinema mode and expanded qualities states
+  const [cinemaMode, setCinemaMode] = useState(false);
+  const [expandedQualities, setExpandedQualities] = useState<Record<number, boolean>>(() => {
+    const initial: Record<number, boolean> = {};
+    for (let i = 0; i < 20; i++) {
+      initial[i] = true;
+    }
+    return initial;
+  });
+
+  const toggleQualityExpand = (idx: number) => {
+    setExpandedQualities((prev) => ({
+      ...prev,
+      [idx]: !prev[idx],
+    }));
+  };
+
+  const getQualityColors = (title: string) => {
+    const clean = title.toLowerCase();
+    if (clean.includes("360")) {
+      return {
+        headerBg: "bg-zinc-600 border-zinc-500 hover:bg-zinc-500",
+      };
+    }
+    if (clean.includes("480")) {
+      return {
+        headerBg: "bg-sky-600 border-sky-500 hover:bg-sky-500",
+      };
+    }
+    if (clean.includes("720")) {
+      return {
+        headerBg: "bg-rose-700 border-rose-600 hover:bg-rose-600",
+      };
+    }
+    if (clean.includes("1080")) {
+      return {
+        headerBg: "bg-violet-700 border-violet-600 hover:bg-violet-600",
+      };
+    }
+    return {
+      headerBg: "bg-slate-700 border-slate-600 hover:bg-slate-600",
+    };
   };
 
   // Click a server → fetch the URL and update iframe
@@ -67,7 +105,15 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
   };
 
   return (
-    <div className="bg-main text-main min-h-screen w-full pb-20 pt-24">
+    <div className="bg-main text-main min-h-screen w-full pb-20 pt-24 relative">
+      {/* Cinema Mode Backdrop */}
+      {cinemaMode && (
+        <div
+          className="fixed inset-0 bg-black/95 z-[45] transition-opacity duration-500 cursor-pointer animate-fade-in"
+          onClick={() => setCinemaMode(false)}
+        />
+      )}
+
       <div className="mx-auto max-w-5xl px-4">
 
         {/* BREADCRUMB */}
@@ -92,7 +138,7 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
           <div className="lg:col-span-8 space-y-5">
 
             {/* VIDEO PLAYER */}
-            <div className="bg-black relative aspect-video w-full overflow-hidden rounded-2xl border border-border-main/20 shadow-2xl">
+            <div className={`bg-black relative aspect-video w-full overflow-hidden rounded-2xl border border-border-main/20 shadow-2xl transition-all duration-300 ${cinemaMode ? "z-50 ring-4 ring-secondary/20 scale-[1.01]" : "z-0"}`}>
               {isPending && (
                 <div className="absolute inset-0 z-10 flex items-center justify-center bg-black/60">
                   <Loader2 className="h-10 w-10 animate-spin text-secondary" />
@@ -145,65 +191,86 @@ export default function StreamingClient({ id, episodeId, anime, stream }: Stream
               )}
             </div>
 
-            {/* ── QUALITY / SERVER SELECTOR ── */}
+            {/* ── QUALITY / SERVER SELECTOR (OTAKUDESU STYLE) ── */}
             {qualityList.length > 0 && (
-              <div className="bg-surface border-border-main/40 overflow-hidden rounded-2xl border shadow-sm">
-                <div className="bg-border-main/10 flex items-center gap-2 px-5 py-3 border-b border-border-main/40">
-                  <Tv className="text-secondary h-4 w-4" />
-                  <h3 className="text-xs font-black tracking-widest uppercase">Pilih Server</h3>
-                </div>
-
-                {/* Quality tabs */}
-                <div className="flex flex-wrap gap-2 p-4">
-                  {qualityList.map((quality, qIdx) => (
-                    <button
-                      key={qIdx}
-                      onClick={() => handleQualityClick(qIdx)}
-                      className={`transition-cinematic flex items-center gap-1.5 rounded-xl border px-4 py-2 text-xs font-bold ${
-                        activeQualityIdx === qIdx
-                          ? "bg-secondary border-secondary text-black"
-                          : "bg-border-main/10 border-border-main/30 hover:border-secondary/50 hover:bg-secondary/10"
-                      }`}
-                    >
-                      <Server className="h-3 w-3" />
-                      {quality.title.trim()}
-                    </button>
-                  ))}
-                </div>
-
-                {/* Server list (shown when a quality is selected) */}
-                {activeQualityIdx !== null && qualityList[activeQualityIdx] && (
-                  <div className="border-t border-border-main/20 px-4 pb-4">
-                    <p className="py-3 text-[10px] font-bold uppercase tracking-widest opacity-40">
-                      Pilih Mirror — {qualityList[activeQualityIdx].title.trim()}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {qualityList[activeQualityIdx].serverList.map((server, sIdx) => {
-                        const isLoading = loadingServerId === server.serverId;
-                        const isActive = activeServerId === server.serverId;
-                        return (
-                          <button
-                            key={sIdx}
-                            onClick={() => handleServerClick(server.serverId)}
-                            disabled={isLoading || isPending}
-                            className={`transition-cinematic flex items-center gap-1.5 rounded-lg border px-3.5 py-2 text-[11px] font-bold capitalize ${
-                              isActive
-                                ? "bg-secondary border-secondary text-black"
-                                : "bg-surface border-border-main/40 hover:border-secondary hover:text-secondary"
-                            } ${isLoading ? "opacity-60 cursor-wait" : ""}`}
-                          >
-                            {isLoading ? (
-                              <Loader2 className="h-3 w-3 animate-spin" />
-                            ) : (
-                              <Play className={`h-3 w-3 ${isActive ? "fill-black" : ""}`} />
-                            )}
-                            {server.title}
-                          </button>
-                        );
-                      })}
-                    </div>
+              <div className="space-y-4">
+                {/* Header & Cinema Button */}
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    <Tv className="text-secondary h-4 w-4" />
+                    <h3 className="text-xs font-black tracking-widest uppercase">Pilih Kualitas / Server</h3>
                   </div>
-                )}
+                  <button
+                    onClick={() => setCinemaMode(!cinemaMode)}
+                    className={`uppercase text-[10px] font-black tracking-widest px-3 py-1.5 rounded-lg transition-all duration-300 shadow-md ${
+                      cinemaMode 
+                        ? "bg-secondary text-black animate-pulse shadow-[0_0_15px_rgba(0,229,255,0.4)] font-black" 
+                        : "bg-red-600 text-white hover:bg-red-700 hover:scale-105"
+                    }`}
+                  >
+                    Cinema {cinemaMode ? "On" : "Off"}
+                  </button>
+                </div>
+
+                {/* Grid of Qualities */}
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
+                  {qualityList.map((quality, qIdx) => {
+                    const colors = getQualityColors(quality.title);
+                    const isExpanded = expandedQualities[qIdx] ?? false;
+                    
+                    let titleText = quality.title.trim();
+                    if (!titleText.toLowerCase().includes("mirror")) {
+                      titleText = `Mirror ${titleText}`;
+                    }
+
+                    return (
+                      <div key={qIdx} className="bg-surface border border-border-main/20 flex flex-col overflow-hidden rounded-xl shadow-md">
+                        {/* Header Quality Button */}
+                        <button
+                          onClick={() => toggleQualityExpand(qIdx)}
+                          className={`w-full py-3 px-4 flex items-center justify-center gap-2 text-white font-black text-xs uppercase tracking-wider transition-all duration-300 ${colors.headerBg}`}
+                        >
+                          <Monitor className="h-4.5 w-4.5 text-white fill-white/20 shrink-0" />
+                          <span>{titleText}</span>
+                        </button>
+
+                        {/* Collapsible Mirror Server list */}
+                        {isExpanded && (
+                          <div className="divide-y divide-border-main/10 bg-[#0f0f11]/60 transition-all duration-300 animate-slide-down">
+                            {quality.serverList.map((server, sIdx) => {
+                              const isLoading = loadingServerId === server.serverId;
+                              const isActive = activeServerId === server.serverId;
+                              return (
+                                <button
+                                  key={sIdx}
+                                  onClick={() => handleServerClick(server.serverId)}
+                                  disabled={isLoading || isPending}
+                                  className={`w-full py-3 px-4 text-center text-xs font-bold transition-all block relative ${
+                                    isActive
+                                      ? "bg-secondary/15 text-secondary border-l-4 border-l-secondary"
+                                      : "text-zinc-400 hover:text-white hover:bg-white/5"
+                                  } ${isLoading ? "opacity-60 cursor-wait" : ""}`}
+                                >
+                                  {isLoading ? (
+                                    <div className="flex items-center justify-center gap-1.5">
+                                      <Loader2 className="h-3.5 w-3.5 animate-spin" />
+                                      <span>Loading...</span>
+                                    </div>
+                                  ) : (
+                                    <div className="flex items-center justify-center gap-1.5">
+                                      {isActive && <Play className="h-3 w-3 fill-current shrink-0" />}
+                                      <span>{server.title}</span>
+                                    </div>
+                                  )}
+                                </button>
+                              );
+                            })}
+                          </div>
+                        )}
+                      </div>
+                    );
+                  })}
+                </div>
               </div>
             )}
 
