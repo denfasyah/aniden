@@ -19,7 +19,7 @@ export default function AnimeCard({ anime }: AnimeCardProps) {
 
   return (
     <Link
-      href={`/anime/${anime.animeId}`}
+      href={`/anime/${anime.slug || anime.animeId}`}
       className="group flex w-full flex-col focus:outline-none"
     >
       {/* IMAGE CONTAINER */}

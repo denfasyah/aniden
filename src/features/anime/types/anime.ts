@@ -44,6 +44,7 @@ export interface GenreItem {
 export interface ScheduleItem {
   title: string;
   animeId: string;
+  slug: string;
   href: string;
 }
 
@@ -60,6 +61,7 @@ export interface EpisodeItem {
   episodeId: string;
   href: string;
   otakudesuUrl?: string;
+  eps: number
 }
 
 export interface RecommendedAnime {
@@ -120,23 +122,49 @@ export interface DownloadQuality {
   urls: DownloadLink[];
 }
 
+// export interface EpisodeStreamData {
+//   title: string;
+//   releaseTime: string;
+//   defaultStreamingUrl: string;
+//   hasPrevEpisode: boolean;
+//   prevEpisode: {
+//     episodeId: string;
+//   } | null;
+//   hasNextEpisode: boolean;
+//   nextEpisode: {
+//     episodeId: string;
+//   } | null;
+//   server: {
+//     qualities: StreamQuality[];
+//   };
+//   downloadUrl: {
+//     qualities: DownloadQuality[];
+//   };
+// }
+
 export interface EpisodeStreamData {
   title: string;
-  releaseTime: string;
   defaultStreamingUrl: string;
   hasPrevEpisode: boolean;
-  prevEpisode: {
-    episodeId: string;
-  } | null;
   hasNextEpisode: boolean;
-  nextEpisode: {
-    episodeId: string;
-  } | null;
-  server: {
-    qualities: StreamQuality[];
+  prevEpisode: { episodeId: string } | null;
+  nextEpisode: { episodeId: string } | null;
+  server: {                          // ← tambah ini
+    qualities: {
+      title: string;
+      serverList: {
+        title: string;
+        serverId: string;
+        href: string;
+      }[];
+    }[];
   };
   downloadUrl: {
-    qualities: DownloadQuality[];
+    qualities: {
+      title: string;
+      size: string;
+      urls: { title: string; url: string }[];
+    }[];
   };
 }
 

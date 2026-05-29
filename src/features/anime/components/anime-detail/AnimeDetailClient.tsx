@@ -8,6 +8,7 @@ import SynopsisSection from "./SynopsisSection";
 import EpisodeList from "./EpisodeList";
 import ProductionInfo from "./ProductionInfo";
 import Recommendation from "./Recommendation";
+import { getAnimeDetail } from "../../services/animeService";
 
 function AnimeDetailSkeleton() {
   return (
@@ -37,40 +38,30 @@ export default function AnimeDetailClient({ animeId }: AnimeDetailClientProps) {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
+  // eslint-disable-next-line react-hooks/set-state-in-effect
+  setMounted(true);
 
-    const fetchAnimeDetail = async () => {
-      try {
-        setLoading(true);
-        const apiUrl = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3001/otakudesu";
-        const response = await fetch(`${apiUrl}/anime/${animeId}`);
+  const fetchAnimeDetail = async () => {
+    try {
+      setLoading(true);
+      // Panggil fungsi service yang sudah kita buat, jangan fetch manual lagi
+      const data = await getAnimeDetail(animeId);
 
-        if (!response.ok) {
-          throw new Error("Gagal mengambil data dari server API scraping");
-        }
-
-        const json = await response.json();
-
-        if (json.ok && json.data) {
-          setAnime(json.data);
-        } else {
-          throw new Error(json.message || "Data anime tidak ditemukan");
-        }
-      } catch (err) {
-        console.error("Fetch Error:", err);
-        const errorMessage =
-          err instanceof Error ? err.message : "Terjadi kesalahan saat memuat data";
-        setError(errorMessage);
-      } finally {
-        setLoading(false);
+      if (data) {
+        setAnime(data);
+      } else {
+        throw new Error("Data anime tidak ditemukan");
       }
-    };
-
-    if (animeId) {
-      fetchAnimeDetail();
+    } catch (err) {
+      console.error("Fetch Error:", err);
+      setError("Terjadi kesalahan saat memuat data");
+    } finally {
+      setLoading(false);
     }
-  }, [animeId]);
+  };
+
+  if (animeId) fetchAnimeDetail();
+}, [animeId]);
 
   if (!mounted || loading) return <AnimeDetailSkeleton />;
 

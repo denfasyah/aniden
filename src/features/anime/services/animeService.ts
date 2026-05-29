@@ -1,6 +1,5 @@
 import {
   AnimeItem,
-  GenreItem,
   DaySchedule,
   AnimeDetailData,
   ApiResponseGeneric,
@@ -9,7 +8,11 @@ import {
   AzGroup,
 } from "../types/anime";
 
-const BASE_URL = "/api/proxy/";
+// animeService.ts — ganti baris BASE_URL
+const BASE_URL =
+  typeof window === "undefined"
+    ? process.env.NEXT_PUBLIC_API_URL!          // "https://bintangapi.full.diskon.cloud/api/stream"
+    : "/api/proxy";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ITEMS_PER_PAGE = 12;
 
@@ -40,22 +43,22 @@ export async function getOngoingAnime(): Promise<AnimeItem[]> {
   }
 }
 
-export async function getAnimeGenres(): Promise<GenreItem[]> {
-  try {
-    const res = await fetch(`${BASE_URL}/genres`, { cache: "no-store" });
+// export async function getAnimeGenres(): Promise<GenreItem[]> {
+//   try {
+//     const res = await fetch(`${BASE_URL}/genres`, { cache: "no-store" });
 
-    if (!res.ok) {
-      throw new Error(`Failed to fetch genres: ${res.status}`);
-    }
+//     if (!res.ok) {
+//       throw new Error(`Failed to fetch genres: ${res.status}`);
+//     }
 
-    const responseData = await res.json();
-    // Mengambil array dari data.genreList sesuai dengan skema response API asli
-    return responseData.data?.genreList || [];
-  } catch (error) {
-    console.error("Error inside getAnimeGenres service:", error);
-    return []; // Kembalikan array kosong sebagai fallback aman
-  }
-}
+//     const responseData = await res.json();
+//     // Mengambil array dari data.genreList sesuai dengan skema response API asli
+//     return responseData.data?.genreList || [];
+//   } catch (error) {
+//     console.error("Error inside getAnimeGenres service:", error);
+//     return []; // Kembalikan array kosong sebagai fallback aman
+//   }
+// }
 
 export async function getCompletedAnime(): Promise<AnimeItem[]> {
   try {
@@ -76,14 +79,12 @@ export async function getCompletedAnime(): Promise<AnimeItem[]> {
 
 async function fetchScoreDetail(animeId: string): Promise<string> {
   try {
-    // Memanggil endpoint detail untuk mengambil score asli
-    const res = await fetch(`${BASE_URL}/anime/${animeId}`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/animeId/?animeId=${animeId}`, { cache: "no-store" });
     if (!res.ok) return "0.0";
-
     const responseData = await res.json();
     return responseData.data?.score || "0.0";
   } catch {
-    return "0.0"; // Fallback aman jika gagal fetch detail
+    return "0.0";
   }
 }
 
@@ -102,9 +103,9 @@ export async function getAnimeSchedule(): Promise<DaySchedule[]> {
   }
 }
 
-export async function getAnimeDetail(slug: string): Promise<AnimeDetailData | null> {
+export async function getAnimeDetail(animeId: string): Promise<AnimeDetailData | null> {
   try {
-    const res = await fetch(`${BASE_URL}/anime/${slug}`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/animeId/?animeId=${animeId}`, { cache: "no-store" });
     if (!res.ok) throw new Error("Gagal fetch detail");
 
     const response: ApiResponseGeneric<AnimeDetailData> = await res.json();
@@ -120,7 +121,7 @@ export async function getAnimeDetail(slug: string): Promise<AnimeDetailData | nu
 
 export async function getEpisodeStream(episodeId: string): Promise<EpisodeStreamData | null> {
   try {
-    const res = await fetch(`${BASE_URL}/episode/${episodeId}`, { cache: "no-store" });
+    const res = await fetch(`${BASE_URL}/anime/episode/?episodeId=${episodeId}`, { cache: "no-store" });
     if (!res.ok) return null;
 
     const response: ApiResponseGeneric<EpisodeStreamData> = await res.json();

@@ -1,5 +1,5 @@
 import CompletedAnime from "@/features/anime/components/animelist/CompletedAnime";
-import GenreSection from "@/features/anime/components/animelist/GenreList";
+// import GenreSection from "@/features/anime/components/animelist/GenreList";
 import NewUpdate from "@/features/anime/components/animelist/NewUpdate";
 import HeroSection from "@/features/anime/components/hero/HeroSection"
 import ScheduleList from "@/features/anime/components/animelist/ScheduleList";
@@ -11,7 +11,7 @@ export default function Home() {
       <HeroSection />
       <SociabuzzMarquee />
       <NewUpdate />
-      <GenreSection />
+      {/* <GenreSection /> */}
       <CompletedAnime />
       <ScheduleList />
 
