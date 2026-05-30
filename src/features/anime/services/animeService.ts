@@ -3,7 +3,6 @@ import {
   GenreItem,
   DaySchedule,
   AnimeDetailData,
-  ApiResponseGeneric,
   EpisodeStreamData,
   CategoryPaginatedResult,
   AzGroup,
@@ -11,7 +10,7 @@ import {
 
 const BASE_URL =
   typeof window === "undefined"
-    ? process.env.NEXT_PUBLIC_API_URL!          // "https://bintangapi.full.diskon.cloud/api/stream"
+    ? process.env.NEXT_PUBLIC_API_URL!         
     : "/api/proxy";
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 const ITEMS_PER_PAGE = 12;
@@ -213,7 +212,7 @@ export async function getGenreDetail(
   page: number = 1
 ): Promise<CategoryPaginatedResult> {
   try {
-    const res = await fetch(`${BASE_URL}/genres/${genreId}?page=${page}`, {
+    const res = await fetch(`${BASE_URL}/genre/${genreId}?page=${page}`, {
       cache: "no-store",
     });
 

@@ -78,6 +78,7 @@ export default function AnimeSchedule() {
         if (data && Array.isArray(data)) {
           scheduleArray = data;
         } else if (data && typeof data === "object") {
+          // eslint-disable-next-line @typescript-eslint/no-explicit-any
           const anyData = data as any;
           if (Array.isArray(anyData.data?.scheduleList)) {
             scheduleArray = anyData.data.scheduleList;
